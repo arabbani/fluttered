@@ -6,7 +6,7 @@ import '../../typedef/pvc_provider_builder.dart';
 /// Create a [StatelessWidget] using [ChangeNotifierProvider]. The widget rebuild
 /// itself whenever the [controller] calls [ChangeNotifier.notifyListeners].
 class StatelessMutablePVC<T extends ChangeNotifier> extends StatelessWidget {
-  /// The controller for this view. Controller manages the data needed
+  /// The controller for this view. [controller] manages the data needed
   /// to build the view.
   ///
   /// Must implement [ChangeNotifier], and handle the state of the view by calling
@@ -40,7 +40,7 @@ class StatelessMutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   /// If the entire widget tree returned by the builder callback does not depend on the [controller],
   /// use [StatelessImmutablePVC] or [StatefulImmutablePVC] instead.
   ///
-  /// If you want to perform some initialization on the [controller] when the widget is
+  /// If you want to perform some initialization logic on the [controller] when the widget is
   /// inserted into the tree, use [StatefulMutablePVC] instead.
   StatelessMutablePVC({
     Key key,

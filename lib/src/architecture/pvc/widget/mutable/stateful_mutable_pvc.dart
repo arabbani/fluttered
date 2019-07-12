@@ -6,7 +6,7 @@ import '../../typedef/pvc_provider_builder.dart';
 /// Create a [StatefulWidget] using [ChangeNotifierProvider]. The widget rebuild
 /// itself whenever the [controller] calls [ChangeNotifier.notifyListeners].
 class StatefulMutablePVC<T extends ChangeNotifier> extends StatefulWidget {
-  /// The controller for this view. Controller manages the data needed
+  /// The controller for this view. [controller] manages the data needed
   /// to build the view.
   ///
   /// Must implement [ChangeNotifier], and handle the state of the view by calling
