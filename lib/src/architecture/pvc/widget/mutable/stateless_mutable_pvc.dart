@@ -36,7 +36,7 @@ class StatelessMutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   ///
   /// `StatelessMutablePVC` rebuild itself whenever the [controller] calls [ChangeNotifier.notifyListeners].
   ///
-  /// If the entire widget tree return by the builder callback does not depend on the [controller],
+  /// If the entire widget tree returned by the builder callback does not depend on the [controller],
   /// use [StatelessImmutablePVC] or [StatefulImmutablePVC] instead.
   ///
   /// If you want to perform some initialization on the [controller] when the widget is
@@ -46,7 +46,9 @@ class StatelessMutablePVC<T extends ChangeNotifier> extends StatelessWidget {
     @required this.controller,
     @required this.builder,
     this.child,
-  }) : super(key: key);
+  })  : assert(controller != null, 'The \'controller\' must not be null.'),
+        assert(builder != null, 'The \'builder\' must not be null.'),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
