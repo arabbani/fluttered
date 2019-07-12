@@ -32,8 +32,8 @@ class StatefulMutablePVC<T extends ChangeNotifier> extends StatefulWidget {
   /// significantly in some cases.
   final Widget child;
 
-  /// Called when this object is inserted into the tree. This method is used to perform some
-  /// initialization logic in the controller, if needed.
+  /// Called when this widget is inserted into the tree. This method is used to perform some
+  /// initialization logic on the controller, if needed.
   ///
   /// The framework will call this method exactly once for each [StatefulMutablePVC] object
   /// it creates.
@@ -47,8 +47,8 @@ class StatefulMutablePVC<T extends ChangeNotifier> extends StatefulWidget {
   /// If the entire widget tree returned by the builder callback does not depend on the [controller],
   /// use [StatelessImmutablePVC] or [StatefulImmutablePVC] instead.
   ///
-  /// [onModelReady] is called when this widget is inserted into the tree.  This method is used to
-  /// perform some initialization logic in the controller, if needed.The framework
+  /// [onModelReady] is called when this widget is inserted into the tree. This method is used to
+  /// perform some initialization logic on the controller, if needed. The framework
   /// will call this method exactly once for each [StatefulMutablePVC] object it creates.
   StatefulMutablePVC({
     Key key,
