@@ -1,6 +1,6 @@
 # fluttered
 
-A new Flutter package project.
+A Flutter package that provides various handy widgets and other helpers.
 
 ## Getting Started
 
