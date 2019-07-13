@@ -3,29 +3,34 @@ import 'package:provider/provider.dart';
 
 import '../../typedef/pvc_provider_builder.dart';
 
-/// Create a [StatelessWidget] using [Provider]. Once created,
-/// the widget tree never rebuilds.
+/// A [StatelessImmutablePVC] is immutable, as the name suggests.
+// {@template pvc.immutable}
+/// That means, once created, the widget tree never rebuild itself.
+/// The [controller] manages the data needed to build the view.
+///
+/// If you want the widget tree to rebuild when [controller] value changes,
+/// use [StatelessMutablePVC] or [StatefulMutablePVC] instead.
+/// {@endtemplate}
+///
+/// If you want to perform some initialization on the [controller] when
+/// the widget is inserted into the widget tree, use [StatefulImmutablePVC] instead.
 class StatelessImmutablePVC<T> extends StatelessWidget {
+  /// {@template pvc.immutable.controller}
   /// The controller for this view. [controller] manages the data needed
   /// to build the view.
-  final T controller;
-
-  /// Build a widget tree based on the [controller] value. Once created,
-  /// the widget never rebuild itself.
   ///
   /// Must not be null.
+  /// {@endtemplate}
+  final T controller;
+
+  /// {@template pvc.builder}
+  /// Build a widget tree based on the [controller] value.
+  ///
+  /// Must not be null.
+  /// {@endtemplate}
   final PVCProviderBuilder<T> builder;
 
   /// Create a [StatelessWidget] using [Provider], and bind the [controller] to it.
-  ///
-  /// [StatelessImmutablePVC] is immutable, as the name suggests. That means
-  /// it will never rebuild itself.
-  ///
-  /// If you want the widget tree to rebuild based on the [controller] value,
-  /// use [StatelessMutablePVC] or [StatefulMutablePVC] instead.
-  ///
-  /// If you want to perform some initialization logic on the [controller] when
-  /// the widget is inserted into the tree, use [StatefulImmutablePVC] instead.
   StatelessImmutablePVC({
     Key key,
     @required this.controller,
@@ -37,7 +42,7 @@ class StatelessImmutablePVC<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider<T>(
-      builder: (_) => controller,
+      builder: (context) => controller,
       child: Consumer<T>(builder: builder),
       // dispose: (_, controller) => {
       //   if(controller)

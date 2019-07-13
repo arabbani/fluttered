@@ -5,6 +5,7 @@ import '../../typedef/pvc_provider_builder.dart';
 
 /// Create a [StatefulWidget] using [ChangeNotifierProvider]. The widget rebuild
 /// itself whenever the [controller] calls [ChangeNotifier.notifyListeners].
+/// It will automatically call [ChangeNotifier.dispose] when needed.
 class StatefulMutablePVC<T extends ChangeNotifier> extends StatefulWidget {
   /// The controller for this view. [controller] manages the data needed
   /// to build the view.
@@ -40,6 +41,8 @@ class StatefulMutablePVC<T extends ChangeNotifier> extends StatefulWidget {
   final Function(T controller) onModelReady;
 
   /// Create a [StatefulWidget] using [ChangeNotifierProvider], and bind the [controller] to it.
+  /// If you need some cleanup, override the `dispose` method in the controller.The dispose
+  /// method is automatically called when this widget is removed from the widget tree.
   /// The state of the widget is maintained by the [controller].
   ///
   /// `StatefulMutablePVC` rebuild itself whenever the [controller] calls [ChangeNotifier.notifyListeners].
@@ -50,6 +53,8 @@ class StatefulMutablePVC<T extends ChangeNotifier> extends StatefulWidget {
   /// [onModelReady] is called when this widget is inserted into the tree. This method is used to
   /// perform some initialization logic on the controller, if needed. The framework
   /// will call this method exactly once for each [StatefulMutablePVC] object it creates.
+  ///
+  /// This widget will call the
   StatefulMutablePVC({
     Key key,
     @required this.controller,
@@ -76,7 +81,7 @@ class _StatefulMutablePVCState<T extends ChangeNotifier>
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<T>(
-      builder: (_) => widget.controller,
+      builder: (context) => widget.controller,
       child: Consumer<T>(
         builder: widget.builder,
         child: widget.child,
