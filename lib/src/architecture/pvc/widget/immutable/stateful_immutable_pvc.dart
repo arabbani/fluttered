@@ -52,5 +52,3 @@ class _StatefulImmutablePVCState<T> extends State<StatefulImmutablePVC<T>> {
     );
   }
 }
-
-/// {@macro pvc.}

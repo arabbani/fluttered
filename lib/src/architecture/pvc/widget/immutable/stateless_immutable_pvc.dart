@@ -6,9 +6,9 @@ import '../../typedef/pvc_provider_builder.dart';
 /// A [StatelessImmutablePVC] is immutable, as the name suggests.
 // {@template pvc.immutable}
 /// That means, once created, the widget tree never rebuild itself.
-/// The [controller] manages the data needed to build the view.
+/// The [controller] manages the data needed to build the widget tree.
 ///
-/// If you want the widget tree to rebuild when [controller] value changes,
+/// If you want the widget tree to rebuild when the [controller] value changes,
 /// use [StatelessMutablePVC] or [StatefulMutablePVC] instead.
 /// {@endtemplate}
 ///
