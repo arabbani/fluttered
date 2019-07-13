@@ -3,8 +3,12 @@ import 'package:provider/provider.dart';
 
 import '../../typedef/pvc_widget_builder.dart';
 
-/// A [StatefulImmutablePVC] is immutable, as the name suggests.
-/// {@macro fluttered.architecture.pvc.immutable}
+/// A `StatefulImmutablePVC` is immutable, as the name suggests.
+/// That means, once created, the widget tree never rebuild itself.
+/// The [controller] manages the data needed to build the widget tree.
+///
+/// If you want the widget tree to rebuild when the [controller] value changes,
+/// use [StatelessMutablePVC] or [StatefulMutablePVC] instead.
 class StatefulImmutablePVC<T> extends StatefulWidget {
   /// {@macro fluttered.architecture.pvc.immutable.controller}
   final T controller;
@@ -16,13 +20,13 @@ class StatefulImmutablePVC<T> extends StatefulWidget {
   /// This method is called only once when this widget is inserted into the
   /// widget tree. This method is used to perform some initialization on the
   /// controller, if needed.
-  /// {@endtemplate}
   ///
+  /// {@endtemplate}
   /// The framework will call this method exactly once for each [StatefulImmutablePVC] object
   /// it creates.
   final Function(T) onModelReady;
 
-  /// Creates a [StatefulWidget] using [Provider], and bind the [controller] to it.
+  /// Creates a [StatefulWidget], and bind the [controller] to it.
   StatefulImmutablePVC({
     Key key,
     @required this.controller,
