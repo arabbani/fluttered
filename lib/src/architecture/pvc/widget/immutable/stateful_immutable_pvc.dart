@@ -16,6 +16,7 @@ class StatefulImmutablePVC<T> extends StatefulWidget {
   /// This method is called only once when this widget is inserted into the
   /// widget tree. This method is used to perform some initialization on the
   /// controller, if needed.
+  ///
   /// {@endtemplate}
   ///
   /// The framework will call this method exactly once for each [StatefulImmutablePVC] object
