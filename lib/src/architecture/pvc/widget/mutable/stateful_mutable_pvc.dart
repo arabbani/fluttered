@@ -4,14 +4,14 @@ import 'package:provider/provider.dart';
 import '../../typedef/pvc_on_model_ready.dart';
 import '../../typedef/pvc_widget_builder.dart';
 
-/// `StatefulMutablePVC` rebuild itself whenever the [controller] value changes.
+/// `StatefulMutablePvc` rebuild itself whenever the [controller] value changes.
 ///
 /// It will automatically dispose the [controller] when this widget is removed
 /// from the widget tree.
 ///
 /// If the entire widget tree returned by the [builder] callback does not rebuild
-/// when the [controller] value changes, use [StatelessImmutablePVC] or [StatefulImmutablePVC] instead.
-class StatefulMutablePVC<T extends ChangeNotifier> extends StatefulWidget {
+/// when the [controller] value changes, use [StatelessImmutablePvc] or [StatefulImmutablePvc] instead.
+class StatefulMutablePvc<T extends ChangeNotifier> extends StatefulWidget {
   /// The controller that manages the data needed to build the view.
   ///
   /// Must implement [ChangeNotifier], and handle the state of the view by calling
@@ -23,7 +23,7 @@ class StatefulMutablePVC<T extends ChangeNotifier> extends StatefulWidget {
   /// Build a widget tree based on the [controller] value.
   ///
   /// Must not be null.
-  final PVCWidgetBuilder<T> builder;
+  final PvcWidgetBuilder<T> builder;
 
   /// The child widget to pass to the [builder].
   ///
@@ -31,7 +31,7 @@ class StatefulMutablePVC<T extends ChangeNotifier> extends StatefulWidget {
   /// the [controller], it's more efficient to build that subtree once instead of
   /// rebuilding it on every change of the [controller].
   ///
-  /// If the pre-built subtree is passed as the child parameter, [StatefulMutablePVC]
+  /// If the pre-built subtree is passed as the child parameter, [StatefulMutablePvc]
   /// will pass it back to the builder function so that it can be incorporated into the build.
   ///
   /// Using this pre-built child is entirely optional, but can improve performance
@@ -46,12 +46,12 @@ class StatefulMutablePVC<T extends ChangeNotifier> extends StatefulWidget {
   ///
   /// Must not be null.
   ///
-  /// The framework will call this method exactly once for each [StatefulMutablePVC] object
+  /// The framework will call this method exactly once for each [StatefulMutablePvc] object
   /// it creates.
   final PvcOnModelReady<T> onModelReady;
 
   /// Creates a [StatefulWidget] using [ChangeNotifierProvider], and bind the [controller] to it.
-  StatefulMutablePVC({
+  StatefulMutablePvc({
     Key key,
     @required this.controller,
     @required this.builder,
@@ -63,11 +63,11 @@ class StatefulMutablePVC<T extends ChangeNotifier> extends StatefulWidget {
         super(key: key);
 
   @override
-  _StatefulMutablePVCState createState() => _StatefulMutablePVCState<T>();
+  _StatefulMutablePvcState createState() => _StatefulMutablePvcState<T>();
 }
 
-class _StatefulMutablePVCState<T extends ChangeNotifier>
-    extends State<StatefulMutablePVC<T>> {
+class _StatefulMutablePvcState<T extends ChangeNotifier>
+    extends State<StatefulMutablePvc<T>> {
   @override
   void initState() {
     widget.onModelReady(widget.controller);

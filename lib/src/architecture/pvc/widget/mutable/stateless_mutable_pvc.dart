@@ -3,18 +3,18 @@ import 'package:provider/provider.dart';
 
 import '../../typedef/pvc_widget_builder.dart';
 
-/// `StatelessMutablePVC` rebuild itself whenever the [controller] value changes.
+/// `StatelessMutablePvc` rebuild itself whenever the [controller] value changes.
 ///
 /// It will automatically dispose the [controller] when this widget is removed
 /// from the widget tree.
 ///
 /// If you want to perform some initialization on the [controller] when
-/// the widget is inserted into the widget tree, use [StatefulMutablePVC] instead.
+/// the widget is inserted into the widget tree, use [StatefulMutablePvc] instead.
 ///
 /// If the entire widget tree returned by the [builder] callback does not rebuild
-/// when the [controller] value changes, use [StatelessImmutablePVC] or [StatefulImmutablePVC] instead.
+/// when the [controller] value changes, use [StatelessImmutablePvc] or [StatefulImmutablePvc] instead.
 
-class StatelessMutablePVC<T extends ChangeNotifier> extends StatelessWidget {
+class StatelessMutablePvc<T extends ChangeNotifier> extends StatelessWidget {
   /// The controller that manages the data needed to build the view.
   ///
   /// Must implement [ChangeNotifier], and change the state by calling [ChangeNotifier.notifyListeners].
@@ -25,7 +25,7 @@ class StatelessMutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   /// Build a widget tree based on the [controller] value.
   ///
   /// Must not be null.
-  final PVCWidgetBuilder<T> builder;
+  final PvcWidgetBuilder<T> builder;
 
   /// The child widget to pass to the [builder].
   ///
@@ -33,7 +33,7 @@ class StatelessMutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   /// the [controller], it's more efficient to build that subtree once instead of
   /// rebuilding it on every change of the [controller].
   ///
-  /// If the pre-built subtree is passed as the child parameter, [StatelessMutablePVC]
+  /// If the pre-built subtree is passed as the child parameter, [StatelessMutablePvc]
   /// will pass it back to the builder function so that it can be incorporated into the build.
   ///
   /// Using this pre-built child is entirely optional, but can improve performance
@@ -41,7 +41,7 @@ class StatelessMutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   final Widget child;
 
   /// Creates a [StatelessWidget] using [ChangeNotifierProvider], and bind the [controller] to it.
-  StatelessMutablePVC({
+  StatelessMutablePvc({
     Key key,
     @required this.controller,
     @required this.builder,
