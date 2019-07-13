@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../typedef/pvc_provider_builder.dart';
+import '../../typedef/pvc_widget_builder.dart';
 
 /// Create a [StatelessWidget] using [ChangeNotifierProvider]. The widget rebuild
 /// itself whenever the [controller] calls [ChangeNotifier.notifyListeners].
@@ -17,7 +17,7 @@ class StatelessMutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   /// whenever the [controller] changes its state by calling [ChangeNotifier.notifyListeners].
   ///
   /// Must not be null.
-  final PVCProviderBuilder<T> builder;
+  final PVCWidgetBuilder<T> builder;
 
   /// The child widget to pass to [builder].
   ///

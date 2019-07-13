@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../typedef/pvc_provider_builder.dart';
+import '../../typedef/pvc_widget_builder.dart';
 
 /// A [StatelessImmutablePVC] is immutable, as the name suggests.
 // {@template pvc.immutable}
@@ -28,7 +28,7 @@ class StatelessImmutablePVC<T> extends StatelessWidget {
   ///
   /// Must not be null.
   /// {@endtemplate}
-  final PVCProviderBuilder<T> builder;
+  final PVCWidgetBuilder<T> builder;
 
   /// Create a [StatelessWidget] using [Provider], and bind the [controller] to it.
   StatelessImmutablePVC({

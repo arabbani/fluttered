@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../typedef/pvc_provider_builder.dart';
+import '../../typedef/pvc_widget_builder.dart';
 
 /// A [StatefulImmutablePVC] is immutable, as the name suggests.
 /// {@macro pvc.immutable}
@@ -10,7 +10,7 @@ class StatefulImmutablePVC<T> extends StatefulWidget {
   final T controller;
 
   /// {@macro pvc.builder}
-  final PVCProviderBuilder<T> builder;
+  final PVCWidgetBuilder<T> builder;
 
   /// {@template pvc.onModelReady}
   /// This method is called only once when this widget is inserted into the
