@@ -7,32 +7,32 @@ import '../../typedef/pvc_widget_builder.dart';
 /// {@template fluttered.architecture.pvc.immutable.class}
 /// That means, once created, the widget tree never rebuild itself.
 ///
-/// The [controller] manages the data needed to build the widget tree.
-///
 /// If you want the widget tree to rebuild when the [controller] value changes,
 /// use [StatelessMutablePVC] or [StatefulMutablePVC] instead.
-///
 /// {@endtemplate}
 ///
 /// If you want to perform some initialization on the [controller] when
 /// the widget is inserted into the widget tree, use [StatefulImmutablePVC] instead.
 class StatelessImmutablePVC<T> extends StatelessWidget {
-  /// {@template fluttered.architecture.pvc.immutable.controller}
-  /// The controller for this view. `controller` manages the data needed
-  /// to build the view.
+  /// {@template fluttered.architecture.pvc.controller}
+  /// The controller for this view.
   ///
+  /// `controller` manages the data needed to build the view.
+  /// {@endtemplate}
+  ///
+  /// {@template fluttered.mustNotBeNull}
   /// Must not be null.
   /// {@endtemplate}
   final T controller;
 
   /// {@template fluttered.architecture.pvc.builder}
   /// Build a widget tree based on the [controller] value.
-  ///
-  /// Must not be null.
   /// {@endtemplate}
+  ///
+  /// {@macro fluttered.mustNotBeNull}
   final PVCWidgetBuilder<T> builder;
 
-  /// Creates a [StatelessWidget], and bind the [controller] to it.
+  /// Creates a [StatelessWidget] using [Provider], and bind the [controller] to it.
   StatelessImmutablePVC({
     Key key,
     @required this.controller,

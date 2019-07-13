@@ -3,58 +3,43 @@ import 'package:provider/provider.dart';
 
 import '../../typedef/pvc_widget_builder.dart';
 
-/// Create a [StatefulWidget] using [ChangeNotifierProvider]. The widget rebuild
-/// itself whenever the [controller] calls [ChangeNotifier.notifyListeners].
-/// It will automatically call [ChangeNotifier.dispose] when needed.
+/// `StatefulMutablePVC` rebuild itself whenever the [controller] value changes.
+///
+/// {@macro fluttered.architecture.pvc.mutable.disposeInfo}
+///
+/// {@macro fluttered.architecture.pvc.mutable.alternateImplementation}
 class StatefulMutablePVC<T extends ChangeNotifier> extends StatefulWidget {
-  /// The controller for this view. [controller] manages the data needed
-  /// to build the view.
+  /// {@macro fluttered.architecture.pvc.controller}
   ///
-  /// Must implement [ChangeNotifier], and handle the state of the view by calling
-  /// [ChangeNotifier.notifyListeners].
+  /// {@macro fluttered.mustImplementChangeNotifier}
+  ///
+  /// {@macro fluttered.mustNotBeNull}
   final T controller;
 
-  /// Build a widget tree based on the [controller] value. The widget rebuild itself
-  /// whenever the [controller] changes its state by calling [ChangeNotifier.notifyListeners].
+  /// {@macro fluttered.architecture.pvc.builder}
   ///
-  /// Must not be null.
+  /// {@macro fluttered.builderRebuildInfo}
+  ///
+  /// {@macro fluttered.mustNotBeNull}
   final PVCWidgetBuilder<T> builder;
 
-  /// The child widget to pass to [builder].
-  ///
-  /// If a builder callback's return value contains a subtree that does not depend on
-  /// the [controller], it's more efficient to build that subtree once instead of
-  /// rebuilding it on every change of the [controller].
+  /// {@macro fluttered.architecture.pvc.child}
   ///
   /// If the pre-built subtree is passed as the child parameter, [StatefulMutablePVC]
   /// will pass it back to the builder function so that it can be incorporated into the build.
   ///
-  /// Using this pre-built child is entirely optional, but can improve performance
-  /// significantly in some cases.
+  /// {@macro fluttered.architecture.pvc.childBenefit}
   final Widget child;
 
-  /// Called when this widget is inserted into the tree. This method is used to perform some
-  /// initialization logic on the controller, if needed.
+  /// {@macro fluttered.architecture.pvc.onModelReady}
+  ///
+  /// {@macro fluttered.mustNotBeNull}
   ///
   /// The framework will call this method exactly once for each [StatefulMutablePVC] object
   /// it creates.
   final Function(T controller) onModelReady;
 
-  /// Create a [StatefulWidget] using [ChangeNotifierProvider], and bind the [controller] to it.
-  /// If you need some cleanup, override the `dispose` method in the controller.The dispose
-  /// method is automatically called when this widget is removed from the widget tree.
-  /// The state of the widget is maintained by the [controller].
-  ///
-  /// `StatefulMutablePVC` rebuild itself whenever the [controller] calls [ChangeNotifier.notifyListeners].
-  ///
-  /// If the entire widget tree returned by the builder callback does not depend on the [controller],
-  /// use [StatelessImmutablePVC] or [StatefulImmutablePVC] instead.
-  ///
-  /// [onModelReady] is called when this widget is inserted into the tree. This method is used to
-  /// perform some initialization logic on the controller, if needed. The framework
-  /// will call this method exactly once for each [StatefulMutablePVC] object it creates.
-  ///
-  /// This widget will call the
+  /// Creates a [StatefulWidget] using [ChangeNotifierProvider], and bind the [controller] to it.
   StatefulMutablePVC({
     Key key,
     @required this.controller,
