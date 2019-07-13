@@ -17,11 +17,13 @@ class StatefulImmutablePVC<T> extends StatefulWidget {
   final PVCWidgetBuilder<T> builder;
 
   /// {@template fluttered.architecture.pvc.onModelReady}
+  ///
   /// This method is called only once when this widget is inserted into the
   /// widget tree.
   ///
   /// `onModelReady` is used to perform some initialization on the
   /// controller, if needed.
+  ///
   /// {@endtemplate}
   ///
   /// {@macro fluttered.mustNotBeNull}

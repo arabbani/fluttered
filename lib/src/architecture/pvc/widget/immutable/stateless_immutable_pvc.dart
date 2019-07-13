@@ -9,6 +9,7 @@ import '../../typedef/pvc_widget_builder.dart';
 ///
 /// If you want the widget tree to rebuild when the [controller] value changes,
 /// use [StatelessMutablePVC] or [StatefulMutablePVC] instead.
+///
 /// {@endtemplate}
 ///
 /// If you want to perform some initialization on the [controller] when
@@ -18,6 +19,7 @@ class StatelessImmutablePVC<T> extends StatelessWidget {
   /// The controller for this view.
   ///
   /// `controller` manages the data needed to build the view.
+  ///
   /// {@endtemplate}
   ///
   /// {@template fluttered.mustNotBeNull}
