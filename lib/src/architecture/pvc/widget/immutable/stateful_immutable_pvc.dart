@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../typedef/pvc_dispose.dart';
 import '../../typedef/pvc_on_model_ready.dart';
 import '../../typedef/pvc_widget_builder.dart';
 
@@ -30,12 +31,20 @@ class StatefulImmutablePvc<T> extends StatefulWidget {
   /// it creates.
   final PvcOnModelReady<T> onModelReady;
 
+  /// This method is called when the widget is removed from the tree.
+  ///
+  /// If you need to cleanup resources, like close a database connection
+  /// or close a opened file etc, create a `dispose` method on the
+  /// [controller] and pass it as `dispose` argument.
+  final PvcDispose<T> dispose;
+
   /// Creates a [StatefulWidget] using [Provider], and bind the [controller] to it.
   StatefulImmutablePvc({
     Key key,
     @required this.controller,
     @required this.builder,
     @required this.onModelReady,
+    this.dispose,
   })  : assert(controller != null, 'The \'controller\' must not be null.'),
         assert(builder != null, 'The \'builder\' must not be null.'),
         assert(onModelReady != null, '\'onModelReady\' must not be null.'),
@@ -56,6 +65,7 @@ class _StatefulImmutablePvcState<T> extends State<StatefulImmutablePvc<T>> {
   Widget build(BuildContext context) {
     return Provider<T>(
       builder: (context) => widget.controller,
+      dispose: widget.dispose,
       child: Consumer<T>(builder: widget.builder),
     );
   }
