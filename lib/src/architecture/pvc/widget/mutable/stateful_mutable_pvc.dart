@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../typedef/pvc_on_model_ready.dart';
 import '../../typedef/pvc_widget_builder.dart';
 
 /// `StatefulMutablePVC` rebuild itself whenever the [controller] value changes.
@@ -47,7 +48,7 @@ class StatefulMutablePVC<T extends ChangeNotifier> extends StatefulWidget {
   ///
   /// The framework will call this method exactly once for each [StatefulMutablePVC] object
   /// it creates.
-  final Function(T controller) onModelReady;
+  final PvcOnModelReady<T> onModelReady;
 
   /// Creates a [StatefulWidget] using [ChangeNotifierProvider], and bind the [controller] to it.
   StatefulMutablePVC({

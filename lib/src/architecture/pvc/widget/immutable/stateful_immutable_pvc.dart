@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../typedef/pvc_on_model_ready.dart';
 import '../../typedef/pvc_widget_builder.dart';
 
 /// A `StatefulImmutablePVC` is immutable, as the name suggests.
@@ -27,7 +28,7 @@ class StatefulImmutablePVC<T> extends StatefulWidget {
   ///
   /// The framework will call this method exactly once for each [StatefulImmutablePVC] object
   /// it creates.
-  final Function(T) onModelReady;
+  final PvcOnModelReady<T> onModelReady;
 
   /// Creates a [StatefulWidget] using [Provider], and bind the [controller] to it.
   StatefulImmutablePVC({
