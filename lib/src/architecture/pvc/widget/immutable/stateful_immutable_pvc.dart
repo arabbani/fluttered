@@ -58,7 +58,7 @@ class _StatefulImmutablePVCState<T> extends State<StatefulImmutablePVC<T>> {
   @override
   Widget build(BuildContext context) {
     return Provider<T>(
-      builder: (context) => widget.controller,
+      builder: (_) => widget.controller,
       child: Consumer<T>(builder: widget.builder),
     );
   }

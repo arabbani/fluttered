@@ -54,7 +54,7 @@ class StatelessMutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<T>(
-      builder: (context) => controller,
+      builder: (_) => controller,
       child: Consumer<T>(
         builder: builder,
         child: child,

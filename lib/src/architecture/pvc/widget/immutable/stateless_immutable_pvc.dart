@@ -37,7 +37,7 @@ class StatelessImmutablePVC<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider<T>(
-      builder: (context) => controller,
+      builder: (_) => controller,
       child: Consumer<T>(builder: builder),
       // dispose: (_, controller) => {
       //   if(controller)

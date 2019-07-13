@@ -76,7 +76,7 @@ class _StatefulMutablePVCState<T extends ChangeNotifier>
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<T>(
-      builder: (context) => widget.controller,
+      builder: (_) => widget.controller,
       child: Consumer<T>(
         builder: widget.builder,
         child: widget.child,
