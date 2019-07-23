@@ -3,7 +3,6 @@ import 'package:fluttered/src/widget/stateful_wrapper.dart';
 import 'package:provider/provider.dart';
 
 import '../typedef/pvc_on_model_ready.dart';
-import '../typedef/pvc_widget_builder.dart';
 
 /// `MutablePVC` rebuild itself whenever the [controller] value changes.
 ///
@@ -23,7 +22,8 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   /// Build a widget tree based on the [controller] value.
   ///
   /// Must not be null.
-  final PvcWidgetBuilder<T> builder;
+  final Widget Function(BuildContext context, T controller, Widget child)
+      builder;
 
   /// The child widget to pass to the [builder].
   ///
@@ -48,6 +48,7 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   /// The framework will call this method exactly once.
   final PvcOnModelReady<T> onModelReady;
 
+  /// Creates a [StatelessWidget] using [ChangeNotifierProvider], and bind the [controller] to it.
   const MutablePVC({
     Key key,
     @required this.controller,
