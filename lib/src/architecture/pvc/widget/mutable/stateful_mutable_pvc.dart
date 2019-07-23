@@ -70,7 +70,8 @@ class _StatefulMutablePvcState<T extends ChangeNotifier>
     extends State<StatefulMutablePvc<T>> {
   @override
   void initState() {
-    widget.onModelReady(widget.controller);
+    widget.onModelReady?.call(widget.controller);
+    // widget.onModelReady(widget.controller);
     super.initState();
   }
 
