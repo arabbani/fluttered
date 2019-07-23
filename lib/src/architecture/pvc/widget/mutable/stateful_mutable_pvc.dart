@@ -57,9 +57,9 @@ class StatefulMutablePvc<T extends ChangeNotifier> extends StatefulWidget {
     @required this.builder,
     @required this.onModelReady,
     this.child,
-  })  : assert(controller != null, 'The \'controller\' must not be null.'),
-        assert(builder != null, 'The \'builder\' must not be null.'),
-        assert(onModelReady != null, '\'onModelReady\' must not be null.'),
+  })  : assert(controller != null, 'The controller must not be null.'),
+        assert(builder != null, 'The builder must not be null.'),
+        assert(onModelReady != null, 'onModelReady must not be null.'),
         super(key: key);
 
   @override
