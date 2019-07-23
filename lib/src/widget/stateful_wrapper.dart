@@ -2,15 +2,16 @@ import 'package:flutter/widgets.dart';
 
 /// A widget that provides [initState] call in a stateless widget.
 class StatefulWrapper extends StatefulWidget {
-  // Called when this object is inserted into the tree.
+  /// Called when this widget is inserted into the tree.
   ///
-  /// The framework will call this method exactly once for each [State] object
-  /// it creates.
+  /// The framework will call this method exactly once.
   ///
-  /// {@macro flutter.widgets.subscriptions}
+  /// Must not be null.
   final Function onInit;
 
   /// The widget below this widget in the tree.
+  ///
+  /// Must not be null.
   final Widget child;
 
   /// A widget that provides [initState] call in a stateless widget.
