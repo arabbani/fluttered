@@ -1,2 +1,2 @@
-export 'widget/mutable_pvc.dart';
-export 'widget/immutable_pvc.dart';
+export 'mutable_pvc.dart';
+export 'immutable_pvc.dart';

@@ -17,10 +17,10 @@ class StatefulWrapper extends StatefulWidget {
   /// A widget that provides [initState] call in a stateless widget.
   const StatefulWrapper({
     Key key,
-    @required this.child,
     @required this.onInit,
-  })  : assert(child != null, 'child must not be null'),
-        assert(onInit != null, 'onInit must not be null'),
+    @required this.child,
+  })  : assert(onInit != null, 'onInit must not be null'),
+        assert(child != null, 'child must not be null'),
         super(key: key);
 
   @override

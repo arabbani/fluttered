@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttered/src/widget/stateful_wrapper.dart';
 import 'package:provider/provider.dart';
 
-import '../typedef/pvc_on_model_ready.dart';
+import 'typedef/pvc_on_model_ready.dart';
 
 /// `MutablePVC` rebuild itself whenever the [controller] value changes.
 ///

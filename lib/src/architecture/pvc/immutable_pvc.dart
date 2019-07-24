@@ -2,8 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttered/src/widget/stateful_wrapper.dart';
 import 'package:provider/provider.dart';
 
-import '../typedef/pvc_dispose.dart';
-import '../typedef/pvc_on_model_ready.dart';
+import 'typedef/pvc_on_model_ready.dart';
 
 /// `ImmutablePVC`, as the name suggests, is immutable.
 /// That means, once created, the widget tree never rebuild itself.
@@ -35,7 +34,7 @@ class ImmutablePVC<T> extends StatelessWidget {
   /// If you need to cleanup resources, like close a database connection
   /// or close a opened file etc, create a `dispose` method on the
   /// [controller] and pass it as dispose argument.
-  final PvcDispose<T> dispose;
+  final Widget Function(BuildContext context, T controller) dispose;
 
   /// Creates a [StatelessWidget] using [Provider], and bind the [controller] to it.
   const ImmutablePVC({
