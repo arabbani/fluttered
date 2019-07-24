@@ -24,21 +24,21 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   /// Build a widget tree based on the [controller] value.
   ///
   /// Must not be null.
-  final Widget Function(BuildContext context, T controller, Widget child)
-      builder;
+  final Widget Function(
+      BuildContext context, T controller, Widget immutableTree) builder;
 
-  /// The child widget to pass to the [builder].
+  /// The immutableTree widget to pass to the [builder].
   ///
   /// If a builder callback's return value contains a subtree that does not depend on
   /// the [controller], it's more efficient to build that subtree once instead of
   /// rebuilding it on every change of the [controller].
   ///
-  /// If the pre-built subtree is passed as the child parameter, [MutablePVC]
+  /// If the pre-built subtree is passed as the `immutableTree` parameter, [MutablePVC]
   /// will pass it back to the builder function so that it can be incorporated into the build.
   ///
-  /// Using this pre-built child is entirely optional, but can improve performance
+  /// Using this pre-built `immutableTree` is entirely optional, but can improve performance
   /// significantly in some cases.
-  final Widget child;
+  final Widget immutableTree;
 
   /// Called when this widget is inserted into the tree.
   ///
@@ -55,7 +55,7 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
     Key key,
     @required this.controller,
     @required this.builder,
-    this.child,
+    this.immutableTree,
     this.onModelReady,
   })  : assert(controller != null, 'The controller must not be null.'),
         assert(builder != null, 'The builder must not be null.'),
@@ -77,7 +77,7 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
       builder: (context) => controller,
       child: Consumer<T>(
         builder: builder,
-        child: child,
+        child: immutableTree,
       ),
     );
   }
