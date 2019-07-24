@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 /// A function that defines the callback, executed when
 /// the widget is inserted into the widget tree.
-typedef _OnModelReady<T> = void Function(T controller);
+typedef _OnInit<T> = void Function(T controller);
 
 /// `MutablePVC` rebuild itself whenever the [controller] value changes.
 ///
@@ -48,7 +48,7 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   /// Must not be null.
   ///
   /// The framework will call this method exactly once.
-  final _OnModelReady<T> onInit;
+  final _OnInit<T> onInit;
 
   /// Creates a [StatelessWidget] using [ChangeNotifierProvider], and bind the [controller] to it.
   const MutablePVC({
@@ -66,7 +66,7 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
     if (onInit != null) {
       return StatefulWrapper(
         child: _createChild(),
-        onInit: () => onInit,
+        onInit: () => onInit(controller),
       );
     }
     return _createChild();
@@ -107,7 +107,7 @@ class ImmutablePVC<T> extends StatelessWidget {
   /// Must not be null.
   ///
   /// The framework will call this method exactly once.
-  final _OnModelReady<T> onInit;
+  final _OnInit<T> onInit;
 
   /// This method is called when this widget is removed from the tree.
   ///
@@ -132,7 +132,7 @@ class ImmutablePVC<T> extends StatelessWidget {
     if (onInit != null) {
       return StatefulWrapper(
         child: _createChild(context),
-        onInit: () => onInit,
+        onInit: () => onInit(controller),
       );
     }
     return _createChild(context);
