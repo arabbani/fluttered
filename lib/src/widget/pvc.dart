@@ -42,13 +42,13 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
 
   /// Called when this widget is inserted into the tree.
   ///
-  /// `onModelReady` is used to perform some initialization on the
+  /// `onInit` is used to perform some initialization on the
   /// controller, if needed.
   ///
   /// Must not be null.
   ///
   /// The framework will call this method exactly once.
-  final _OnModelReady<T> onModelReady;
+  final _OnModelReady<T> onInit;
 
   /// Creates a [StatelessWidget] using [ChangeNotifierProvider], and bind the [controller] to it.
   const MutablePVC({
@@ -56,17 +56,17 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
     @required this.controller,
     @required this.builder,
     this.immutableTree,
-    this.onModelReady,
+    this.onInit,
   })  : assert(controller != null, 'The controller must not be null.'),
         assert(builder != null, 'The builder must not be null.'),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (onModelReady != null) {
+    if (onInit != null) {
       return StatefulWrapper(
         child: _createChild(),
-        onInit: onModelReady,
+        onInit: () => onInit,
       );
     }
     return _createChild();
@@ -101,13 +101,13 @@ class ImmutablePVC<T> extends StatelessWidget {
 
   /// Called when this widget is inserted into the tree.
   ///
-  /// `onModelReady` is used to perform some initialization on the
+  /// `onInit` is used to perform some initialization on the
   /// controller, if needed.
   ///
   /// Must not be null.
   ///
   /// The framework will call this method exactly once.
-  final _OnModelReady<T> onModelReady;
+  final _OnModelReady<T> onInit;
 
   /// This method is called when this widget is removed from the tree.
   ///
@@ -121,7 +121,7 @@ class ImmutablePVC<T> extends StatelessWidget {
     Key key,
     @required this.controller,
     @required this.builder,
-    this.onModelReady,
+    this.onInit,
     this.dispose,
   })  : assert(controller != null, 'The controller must not be null.'),
         assert(builder != null, 'The builder must not be null.'),
@@ -129,10 +129,10 @@ class ImmutablePVC<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (onModelReady != null) {
+    if (onInit != null) {
       return StatefulWrapper(
         child: _createChild(context),
-        onInit: onModelReady,
+        onInit: () => onInit,
       );
     }
     return _createChild(context);
