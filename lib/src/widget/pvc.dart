@@ -41,6 +41,7 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   final Widget immutableTree;
 
   /// Called when this widget is inserted into the tree.
+  /// [ChangeNotifier.notifyListeners] must be called to inform the changes.
   ///
   /// `onInit` is used to perform some initialization on the
   /// controller, if needed.
@@ -100,6 +101,7 @@ class ImmutablePVC<T> extends StatelessWidget {
       builder;
 
   /// Called when this widget is inserted into the tree.
+  /// [ChangeNotifier.notifyListeners] must be called to inform the changes.
   ///
   /// `onInit` is used to perform some initialization on the
   /// controller, if needed.
