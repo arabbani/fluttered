@@ -96,7 +96,8 @@ class ImmutablePVC<T> extends StatelessWidget {
   /// Build a widget tree based on the [controller] value.
   ///
   /// Must not be null.
-  final Widget Function(BuildContext context, T controller) builder;
+  final Widget Function(BuildContext context, T controller, Widget child)
+      builder;
 
   /// Called when this widget is inserted into the tree.
   ///
@@ -141,10 +142,14 @@ class ImmutablePVC<T> extends StatelessWidget {
     return Provider<T>(
       builder: (context) => controller,
       dispose: dispose,
-      child: builder(
-        context,
-        Provider.of<T>(context, listen: false),
+      child: Consumer<T>(
+        builder: builder,
       ),
     );
   }
 }
+
+// builder(
+//         context,
+//         Provider.of<T>(context, listen: false),
+//       ),
