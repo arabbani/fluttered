@@ -41,7 +41,8 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   final Widget immutableTree;
 
   /// Called when this widget is inserted into the tree.
-  /// [ChangeNotifier.notifyListeners] must be called to inform the changes.
+  /// [ChangeNotifier.notifyListeners] must be called in the `onInit`
+  /// callback to inform the changes.
   ///
   /// `onInit` is used to perform some initialization on the
   /// controller, if needed.
@@ -97,11 +98,11 @@ class ImmutablePVC<T> extends StatelessWidget {
   /// Build a widget tree based on the [controller] value.
   ///
   /// Must not be null.
-  final Widget Function(BuildContext context, T controller, Widget child)
-      builder;
+  final Widget Function(BuildContext context, T controller) builder;
 
   /// Called when this widget is inserted into the tree.
-  /// [ChangeNotifier.notifyListeners] must be called to inform the changes.
+  /// [ChangeNotifier.notifyListeners] must be called in the `onInit`
+  /// callback to inform the changes.
   ///
   /// `onInit` is used to perform some initialization on the
   /// controller, if needed.
@@ -144,14 +145,16 @@ class ImmutablePVC<T> extends StatelessWidget {
     return Provider<T>(
       builder: (context) => controller,
       dispose: dispose,
-      child: Consumer<T>(
-        builder: builder,
+      child: Builder(
+        builder: (context) => builder(
+          context,
+          Provider.of<T>(context, listen: false),
+        ),
       ),
     );
   }
 }
 
-// builder(
-//         context,
-//         Provider.of<T>(context, listen: false),
+// Consumer<T>(
+//         builder: builder,
 //       ),
