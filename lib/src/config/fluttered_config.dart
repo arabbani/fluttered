@@ -1,6 +1,6 @@
 import 'package:fluttered/src/config/theme_config.dart';
 
-void configureFluttered({
+void flutteredConfig({
   ThemeConfig theme,
 }) {
   themeConfig = theme;
