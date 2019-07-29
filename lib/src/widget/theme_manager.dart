@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttered/src/config/theme_config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 typedef _ThemedWidgetBuilder = Widget Function(
     BuildContext context, ThemeData themeData);
@@ -35,6 +36,12 @@ class ThemeManagerState extends State<ThemeManager> {
     setState(() {
       _theme = themeConfig.availableThemes[name];
     });
+    setPref(name);
+  }
+
+  setPref(String name) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('theme', name);
   }
 
   @override
