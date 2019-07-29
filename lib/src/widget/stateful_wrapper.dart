@@ -7,17 +7,17 @@ import 'package:flutter/widgets.dart';
 /// or `didUpdateWidget` or `didChangeDependencies` use `StatefulWrapper`
 /// from a `StatelessWidget`.
 class StatefulWrapper extends StatefulWidget {
+  /// The widget below this widget in the tree.
+  ///
+  /// Must not be null.
+  final Widget child;
+
   /// Called when this widget is inserted into the tree.
   ///
   /// The framework will call this method exactly once.
   ///
   /// Must not be null.
   final Function initState;
-
-  /// The widget below this widget in the tree.
-  ///
-  /// Must not be null.
-  final Widget child;
 
   /// Called widget configuration changes.
   final Function didUpdateWidget;
