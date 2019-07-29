@@ -1,6 +1,9 @@
 import 'package:flutter/widgets.dart';
 
-/// A widget that provides [initState] call in a stateless widget.
+/// A widget that provides [initState] call in a `StatelessWidget`.
+///
+/// Instead of creating a `StatefulWidget` only to call `initState`,
+/// use `StatefulWrapper` from a `StatelessWidget`.
 class StatefulWrapper extends StatefulWidget {
   /// Called when this widget is inserted into the tree.
   ///
