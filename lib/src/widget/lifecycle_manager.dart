@@ -1,4 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
+
+var _lifecycleState = StreamController<AppLifecycleState>();
+
+var currentLifecycleState = _lifecycleState.stream;
 
 class LifecycleManager extends StatefulWidget {
   @override
@@ -21,9 +27,7 @@ class _LifecycleManagerState extends State<LifecycleManager>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // setState(() {
-    //   _lastLifecycleState = state;
-    // });
+    _lifecycleState.add(state);
   }
 
   @override

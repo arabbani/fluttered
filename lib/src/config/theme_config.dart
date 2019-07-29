@@ -7,16 +7,18 @@ class ThemeConfig {
   final Map<String, ThemeData> availableThemes;
 
   /// Name of the default theme.
-  final String defaultTheme;
+  String selectedTheme;
 
   /// Configures the app theme.
-  const ThemeConfig(
+  ThemeConfig(
     this.availableThemes,
-    this.defaultTheme,
+    this.selectedTheme,
   )   : assert(availableThemes != null, 'availableThemes must not be null'),
-        assert(defaultTheme != null, 'defaultTheme must not be null');
+        assert(selectedTheme != null, 'defaultTheme must not be null');
 
-  ThemeData getTheme(String name) => availableThemes[name];
+  // set theme(String theme) => _currentTheme = theme;
+
+  ThemeData getTheme() => availableThemes[selectedTheme];
 }
 
 ThemeConfig themeConfig;

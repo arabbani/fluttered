@@ -43,16 +43,19 @@ class ThemeManagerState extends State<ThemeManager> {
   }
 
   _initTheme() async {
-    _theme = await _getThemePref() ?? themeConfig.defaultTheme;
+    var theme = await _getThemePref() ?? themeConfig.selectedTheme;
+    if (theme != null) {
+      themeConfig.selectedTheme = theme;
+    }
     setState(() {});
-    _setThemePref(_theme);
+    _setThemePref(theme);
   }
 
   /// Set the theme.
   void setTheme(String name) {
-    if (_theme != name) {
+    if (themeConfig.selectedTheme != name) {
       setState(() {
-        _theme = name;
+        themeConfig.selectedTheme = name;
       });
     }
     _setThemePref(name);
@@ -72,7 +75,7 @@ class ThemeManagerState extends State<ThemeManager> {
   Widget build(BuildContext context) {
     return widget.builder(
       context,
-      themeConfig.getTheme(_theme),
+      themeConfig.getTheme(),
     );
   }
 }
