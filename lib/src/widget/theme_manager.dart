@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 typedef _ThemedWidgetBuilder = Widget Function(
     BuildContext context, ThemeData theme);
 
+// TODO: Replace SharedPreferences with custom implementation.
+
 /// Manages the app theme.
 class ThemeManager extends StatefulWidget {
   /// Build a widget tree based on the selected [theme].
