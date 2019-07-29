@@ -68,7 +68,7 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
     if (onInit != null) {
       return StatefulWrapper(
         child: _createChild(),
-        onInit: () => onInit(controller),
+        initState: () => onInit(controller),
       );
     }
     return _createChild();
@@ -135,7 +135,7 @@ class ImmutablePVC<T> extends StatelessWidget {
     if (onInit != null) {
       return StatefulWrapper(
         child: _createChild(context),
-        onInit: () => onInit(controller),
+        initState: () => onInit(controller),
       );
     }
     return _createChild(context);
