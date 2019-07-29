@@ -30,8 +30,6 @@ class ThemeManager extends StatefulWidget {
 }
 
 class ThemeManagerState extends State<ThemeManager> {
-  String _theme;
-
   @override
   void initState() {
     super.initState();
@@ -43,7 +41,7 @@ class ThemeManagerState extends State<ThemeManager> {
   }
 
   _initTheme() async {
-    var theme = await _getThemePref() ?? themeConfig.selectedTheme;
+    var theme = await _getThemePref();
     if (theme != null) {
       themeConfig.selectedTheme = theme;
     }
@@ -57,8 +55,8 @@ class ThemeManagerState extends State<ThemeManager> {
       setState(() {
         themeConfig.selectedTheme = name;
       });
+      _setThemePref(name);
     }
-    _setThemePref(name);
   }
 
   Future<String> _getThemePref() async {
@@ -75,7 +73,7 @@ class ThemeManagerState extends State<ThemeManager> {
   Widget build(BuildContext context) {
     return widget.builder(
       context,
-      themeConfig.getTheme(),
+      themeConfig.availableThemes[themeConfig.selectedTheme],
     );
   }
 }
