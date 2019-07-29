@@ -1,26 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:fluttered/src/widget/pvc.dart';
+import 'package:fluttered/src/config/theme_config.dart';
 
-class _ThemeController extends ChangeNotifier {}
+typedef _ThemedWidgetBuilder = Widget Function(
+    BuildContext context, ThemeData themeData);
 
-class ThemeManager extends StatelessWidget {
-  /// The widget below this widget in the tree.
+class ThemeManager extends StatefulWidget {
+  /// Build a widget tree based on the [themeData].
   ///
   /// Must not be null.
-  final MaterialApp child;
+  final _ThemedWidgetBuilder builder;
 
-  const ThemeManager({Key key, this.child})
-      : assert(child != null, 'child must not be null'),
+  const ThemeManager({Key key, @required this.builder})
+      : assert(builder != null, 'child must not be null'),
         super(key: key);
 
   @override
+  ThemeManagerState createState() => ThemeManagerState();
+
+  static ThemeManagerState of(BuildContext context) {
+    return context.ancestorStateOfType(const TypeMatcher<ThemeManager>());
+  }
+}
+
+class ThemeManagerState extends State<ThemeManager> {
+  ThemeData _theme;
+
+  @override
+  void initState() {
+    setTheme(themeConfig.defaultTheme);
+    super.initState();
+  }
+
+  void setTheme(String name) {
+    setState(() {
+      _theme = themeConfig.availableThemes[name];
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MutablePVC(
-      controller: _ThemeController(),
-      builder: (context, controller, _) {
-        child.
-      },
-    );
+    return widget.builder(context, _theme);
   }
 }
