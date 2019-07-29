@@ -3,7 +3,11 @@ import 'package:fluttered/fluttered.dart';
 import 'package:example/src/util/theme.dart';
 
 void main() {
-  flutteredConfig(theme: ThemeConfig(availableThemes, defaultTheme));
+  flutteredConfig(
+      theme: ThemeConfig(
+    availableThemes: availableThemes,
+    defaultTheme: defaultTheme,
+  ));
   runApp(MyApp());
 }
 

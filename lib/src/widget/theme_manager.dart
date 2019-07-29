@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttered/src/config/theme_config.dart';
+import 'package:fluttered/src/config/fluttered_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 typedef _ThemedWidgetBuilder = Widget Function(
@@ -43,10 +43,8 @@ class ThemeManagerState extends State<ThemeManager> {
   _initTheme() async {
     var theme = await _getThemePref();
     if (theme != null) {
-      themeConfig.selectedTheme = theme;
+      setTheme(theme);
     }
-    setState(() {});
-    _setThemePref(theme);
   }
 
   /// Set the theme.

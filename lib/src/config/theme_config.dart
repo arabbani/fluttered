@@ -10,12 +10,10 @@ class ThemeConfig {
   String selectedTheme;
 
   /// Configures the app theme.
-  ThemeConfig(
-    this.availableThemes,
-    var defaultTheme,
-  )   : assert(availableThemes != null, 'availableThemes must not be null'),
+  ThemeConfig({
+    @required this.availableThemes,
+    @required var defaultTheme,
+  })  : assert(availableThemes != null, 'availableThemes must not be null'),
         assert(defaultTheme != null, 'defaultTheme must not be null'),
         selectedTheme = defaultTheme;
 }
-
-ThemeConfig themeConfig;
