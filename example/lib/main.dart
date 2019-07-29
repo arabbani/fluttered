@@ -35,8 +35,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter(BuildContext context) {
     setState(() {
       _counter++;
+      if (_counter > 1) {
+        _counter = 0;
+      }
     });
-    ThemeManager.of(context).setTheme('theme2');
+    ThemeManager.of(context).setTheme(availableThemes.keys.toList()[_counter]);
   }
 
   @override

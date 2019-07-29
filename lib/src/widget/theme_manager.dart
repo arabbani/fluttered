@@ -9,7 +9,7 @@ typedef _ThemedWidgetBuilder = Widget Function(
 
 /// Manages the app theme.
 class ThemeManager extends StatefulWidget {
-  /// Build a widget tree based on the selected [theme].
+  /// Build a widget tree based on the selected [_theme].
   ///
   /// Must not be null.
   final _ThemedWidgetBuilder builder;
@@ -30,7 +30,7 @@ class ThemeManager extends StatefulWidget {
 }
 
 class ThemeManagerState extends State<ThemeManager> {
-  ThemeData _theme;
+  String _theme;
 
   @override
   void initState() {
@@ -43,15 +43,18 @@ class ThemeManagerState extends State<ThemeManager> {
   }
 
   _initTheme() async {
-    var theme = await _getThemePref();
-    setTheme(theme ?? themeConfig.defaultTheme);
+    _theme = await _getThemePref() ?? themeConfig.defaultTheme;
+    setState(() {});
+    _setThemePref(_theme);
   }
 
   /// Set the theme.
   void setTheme(String name) {
-    setState(() {
-      _theme = themeConfig.availableThemes[name];
-    });
+    if (_theme != name) {
+      setState(() {
+        _theme = name;
+      });
+    }
     _setThemePref(name);
   }
 
@@ -67,6 +70,9 @@ class ThemeManagerState extends State<ThemeManager> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder(context, _theme);
+    return widget.builder(
+      context,
+      themeConfig.getTheme(_theme),
+    );
   }
 }
