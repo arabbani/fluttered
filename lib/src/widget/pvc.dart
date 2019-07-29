@@ -2,21 +2,21 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttered/src/widget/stateful_wrapper.dart';
 import 'package:provider/provider.dart';
 
-/// A function that defines the callback, executed when
-/// the widget is inserted into the widget tree.
 typedef _OnInit<T> = void Function(T controller);
 
 /// `MutablePVC` rebuild itself whenever the [controller] value changes.
 ///
-/// It will automatically dispose the [controller] when this widget is removed
-/// from the widget tree.
+/// It will automatically dispose the [controller] when this widget is
+/// removed from the widget tree.
 ///
-/// If the entire widget tree returned by the [builder] callback does not rebuild
-/// when the [controller] value changes, use [ImmutablePVC] instead.
+/// If the entire widget tree returned by the [builder] callback does
+/// not rebuild when the [controller] value changes, use [ImmutablePVC]
+/// instead.
 class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   /// The controller that manages the data needed to build the view.
   ///
-  /// Must implement [ChangeNotifier], and change the state by calling [ChangeNotifier.notifyListeners].
+  /// Must implement [ChangeNotifier], and change the state by calling
+  /// [ChangeNotifier.notifyListeners].
   ///
   /// Must not be null.
   final T controller;
@@ -29,30 +29,32 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
 
   /// The immutableTree widget to pass to the [builder].
   ///
-  /// If a builder callback's return value contains a subtree that does not depend on
-  /// the [controller], it's more efficient to build that subtree once instead of
-  /// rebuilding it on every change of the [controller].
+  /// If a builder callback's return value contains a subtree that does
+  /// not depend on the [controller], it's more efficient to build that
+  /// subtree once instead of rebuilding it on every change of the [controller].
   ///
-  /// If the pre-built subtree is passed as the `immutableTree` parameter, [MutablePVC]
-  /// will pass it back to the builder function so that it can be incorporated into the build.
+  /// If the pre-built subtree is passed as the `immutableTree` parameter,
+  /// [MutablePVC] will pass it back to the builder function so that it
+  /// can be incorporated into the build.
   ///
-  /// Using this pre-built `immutableTree` is entirely optional, but can improve performance
-  /// significantly in some cases.
+  /// Using this pre-built `immutableTree` is entirely optional, but can
+  /// improve performance significantly in some cases.
   final Widget immutableTree;
 
-  /// Called when this widget is inserted into the tree.
-  /// [ChangeNotifier.notifyListeners] must be called in the `onInit`
-  /// callback to inform the changes.
-  ///
-  /// `onInit` is used to perform some initialization on the
-  /// controller, if needed.
-  ///
-  /// Must not be null.
+  /// Called when this widget is inserted into the tree. `onInit` is used
+  /// to perform some initialization on the controller, if needed.
   ///
   /// The framework will call this method exactly once.
+  ///
+  /// See also:
+  ///
+  ///  * [StatefulWidget.initState] for more info.
   final _OnInit<T> onInit;
 
-  /// Creates a [StatelessWidget] using [ChangeNotifierProvider], and bind the [controller] to it.
+  /// Creates a [StatelessWidget] using [ChangeNotifierProvider], and
+  /// bind the [controller] to it.
+  ///
+  /// The parameters `controller` and `builder` must not be null.
   const MutablePVC({
     Key key,
     @required this.controller,
@@ -68,7 +70,7 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
     if (onInit != null) {
       return StatefulWrapper(
         child: _createChild(),
-        onInit: () => onInit(controller),
+        initState: () => onInit(controller),
       );
     }
     return _createChild();
@@ -88,8 +90,8 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
 /// `ImmutablePVC`, as the name suggests, is immutable.
 /// That means, once created, the widget tree never rebuild itself.
 ///
-/// If you want the widget tree to rebuild when the [controller] value changes,
-/// use [MutablePVC] instead.
+/// If you want the widget tree to rebuild when the [controller] value
+/// changes, use [MutablePVC] instead.
 class ImmutablePVC<T> extends StatelessWidget {
   /// The controller that manages the data needed to build the view.
   /// Must not be null.
@@ -100,16 +102,14 @@ class ImmutablePVC<T> extends StatelessWidget {
   /// Must not be null.
   final Widget Function(BuildContext context, T controller) builder;
 
-  /// Called when this widget is inserted into the tree.
-  /// [ChangeNotifier.notifyListeners] must be called in the `onInit`
-  /// callback to inform the changes.
-  ///
-  /// `onInit` is used to perform some initialization on the
-  /// controller, if needed.
-  ///
-  /// Must not be null.
+  /// Called when this widget is inserted into the tree. `onInit` is used
+  /// to perform some initialization on the controller, if needed.
   ///
   /// The framework will call this method exactly once.
+  ///
+  /// See also:
+  ///
+  ///  * [StatefulWidget.initState] for more info.
   final _OnInit<T> onInit;
 
   /// This method is called when this widget is removed from the tree.
@@ -117,9 +117,15 @@ class ImmutablePVC<T> extends StatelessWidget {
   /// If you need to cleanup resources, like close a database connection
   /// or close a opened file etc, create a `dispose` method on the
   /// [controller] and pass it as dispose argument.
+  ///
+  /// See also:
+  ///
+  ///  * [StatefulWidget.dispose] for more info.
   final Widget Function(BuildContext context, T controller) dispose;
 
   /// Creates a [StatelessWidget] using [Provider], and bind the [controller] to it.
+  ///
+  /// The parameters `controller` and `builder` must not be null.
   const ImmutablePVC({
     Key key,
     @required this.controller,
@@ -135,7 +141,7 @@ class ImmutablePVC<T> extends StatelessWidget {
     if (onInit != null) {
       return StatefulWrapper(
         child: _createChild(context),
-        onInit: () => onInit(controller),
+        initState: () => onInit(controller),
       );
     }
     return _createChild(context);
