@@ -3,14 +3,15 @@ import 'package:fluttered/src/config/theme_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 typedef _ThemedWidgetBuilder = Widget Function(
-    BuildContext context, ThemeData themeData);
+    BuildContext context, ThemeData theme);
 
 class ThemeManager extends StatefulWidget {
-  /// Build a widget tree based on the [themeData].
+  /// Build a widget tree based on the selected [theme].
   ///
   /// Must not be null.
   final _ThemedWidgetBuilder builder;
 
+  /// Manages the app theme.
   const ThemeManager({Key key, @required this.builder})
       : assert(builder != null, 'child must not be null'),
         super(key: key);
@@ -19,7 +20,7 @@ class ThemeManager extends StatefulWidget {
   ThemeManagerState createState() => ThemeManagerState();
 
   static ThemeManagerState of(BuildContext context) {
-    return context.ancestorStateOfType(const TypeMatcher<ThemeManager>());
+    return context.ancestorStateOfType(const TypeMatcher<ThemeManagerState>());
   }
 }
 
@@ -28,18 +29,31 @@ class ThemeManagerState extends State<ThemeManager> {
 
   @override
   void initState() {
-    setTheme(themeConfig.defaultTheme);
+    assert(themeConfig != null,
+        'themeConfig cannot be null. See docs how to config ThemeManager');
+    initTheme();
     super.initState();
   }
 
+  initTheme() async {
+    var theme = await getThemePref();
+    setTheme(theme ?? themeConfig.defaultTheme);
+  }
+
+  /// Set the theme named `name`
   void setTheme(String name) {
     setState(() {
       _theme = themeConfig.availableThemes[name];
     });
-    setPref(name);
+    setThemePref(name);
   }
 
-  setPref(String name) async {
+  Future<String> getThemePref() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('theme');
+  }
+
+  void setThemePref(String name) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('theme', name);
   }

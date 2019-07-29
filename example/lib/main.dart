@@ -10,12 +10,12 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ThemeManager(
+      builder: (context, theme) => MaterialApp(
+        title: 'Flutter Demo',
+        theme: theme,
+        home: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -32,10 +32,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
+  void _incrementCounter(BuildContext context) {
     setState(() {
       _counter++;
     });
+    ThemeManager.of(context).setTheme('theme2');
   }
 
   @override
@@ -59,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () => _incrementCounter(context),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
