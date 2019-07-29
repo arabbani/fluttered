@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// Get the size of the screen.
 Size screenSize(BuildContext context) => MediaQuery.of(context).size;
 
-/// Calculate the height with respect to the screen height.
+/// Calculate the height based on the screen height.
 ///
 /// This method divides the screen height into `split` equal parts,
 /// and assign `take` parts to the widget.
@@ -28,7 +28,7 @@ double calculateHeight(
   return screenHeight / (split - take);
 }
 
-/// Calculate the width with respect to the screen width.
+/// Calculate the width based on the screen width.
 ///
 /// This method divides the screen width into `split` equal parts,
 /// and assign `take` parts to the widget.
