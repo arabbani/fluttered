@@ -63,20 +63,20 @@ class StatefulWrapper extends StatefulWidget {
 class _StatefulWrapperState extends State<StatefulWrapper> {
   @override
   void initState() {
-    widget.initState?.call();
     super.initState();
+    widget.initState?.call();
   }
 
   @override
   void didUpdateWidget(StatefulWrapper oldWidget) {
-    widget.didUpdateWidget?.call();
     super.didUpdateWidget(oldWidget);
+    widget.didUpdateWidget?.call();
   }
 
   @override
   void didChangeDependencies() {
-    widget.didChangeDependencies?.call();
     super.didChangeDependencies();
+    widget.didChangeDependencies?.call();
   }
 
   @override

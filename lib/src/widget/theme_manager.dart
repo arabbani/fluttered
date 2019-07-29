@@ -34,12 +34,12 @@ class ThemeManagerState extends State<ThemeManager> {
 
   @override
   void initState() {
+    super.initState();
     assert(themeConfig != null,
         'themeConfig cannot be null. See docs how to config ThemeManager');
     if (mounted) {
       _initTheme();
     }
-    super.initState();
   }
 
   _initTheme() async {
