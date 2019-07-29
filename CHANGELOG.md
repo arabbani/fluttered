@@ -18,4 +18,13 @@ and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` ins
 **New Features:**
 - StatefulWrapper widget added.
 
+## [0.2.0]
+
+**Breaking Change:**
+- `onInit` parameter changed to `initState` in `StatefulWrapper`.
+
+**New Features:**
+-`ThemeManager` widget added.
+- `didUpdateWidget` and `didChangeDependencies` parameter added to `StatefulWrapper`.
+
 

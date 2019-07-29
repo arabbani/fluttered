@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 
-/// A widget that provides [initState], [didUpdateWidget] and [didChangeDependencies]
-/// call in a `StatelessWidget`.
+/// A widget that provides [initState], [didUpdateWidget] and
+/// [didChangeDependencies] call in a `StatelessWidget`.
 ///
-/// Instead of creating a `StatefulWidget` only to call `initState`,
-/// or `didUpdateWidget` or `didChangeDependencies` use `StatefulWrapper`
-/// from a `StatelessWidget`.
+/// Instead of creating a `StatefulWidget` only to call
+/// `initState`, or `didUpdateWidget` or `didChangeDependencies`
+/// use `StatefulWrapper` from a `StatelessWidget`.
 class StatefulWrapper extends StatefulWidget {
   /// The widget below this widget in the tree.
   ///
@@ -19,14 +19,14 @@ class StatefulWrapper extends StatefulWidget {
   /// Must not be null.
   final Function initState;
 
-  /// Called widget configuration changes.
+  /// Called when widget configuration changes.
   final Function didUpdateWidget;
 
   /// Called when a dependency of this widget changes.
   final Function didChangeDependencies;
 
-  /// A widget that provides [initState], [didUpdateWidget] and [didChangeDependencies]
-  /// call in a stateless widget.
+  /// A widget that provides [initState], [didUpdateWidget] and
+  /// [didChangeDependencies] call in a stateless widget.
   StatefulWrapper({
     Key key,
     @required this.child,

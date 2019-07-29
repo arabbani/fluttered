@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 typedef _ThemedWidgetBuilder = Widget Function(
     BuildContext context, ThemeData theme);
 
+/// Manages the app theme.
 class ThemeManager extends StatefulWidget {
   /// Build a widget tree based on the selected [theme].
   ///
@@ -31,29 +32,29 @@ class ThemeManagerState extends State<ThemeManager> {
   void initState() {
     assert(themeConfig != null,
         'themeConfig cannot be null. See docs how to config ThemeManager');
-    initTheme();
+    _initTheme();
     super.initState();
   }
 
-  initTheme() async {
-    var theme = await getThemePref();
+  _initTheme() async {
+    var theme = await _getThemePref();
     setTheme(theme ?? themeConfig.defaultTheme);
   }
 
-  /// Set the theme named `name`
+  /// Set the theme.
   void setTheme(String name) {
     setState(() {
       _theme = themeConfig.availableThemes[name];
     });
-    setThemePref(name);
+    _setThemePref(name);
   }
 
-  Future<String> getThemePref() async {
+  Future<String> _getThemePref() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('theme');
   }
 
-  void setThemePref(String name) async {
+  void _setThemePref(String name) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('theme', name);
   }
