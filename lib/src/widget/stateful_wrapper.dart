@@ -13,20 +13,31 @@ class StatefulWrapper extends StatefulWidget {
   final Widget child;
 
   /// Called when this widget is inserted into the tree.
-  ///
   /// The framework will call this method exactly once.
   ///
-  /// Must not be null.
+  /// See also:
+  ///
+  ///  * [StatefulWidget.initState]
   final Function initState;
 
   /// Called when widget configuration changes.
+  ///
+  /// See also:
+  ///
+  ///  * [StatefulWidget.didUpdateWidget].
   final Function didUpdateWidget;
 
   /// Called when a dependency of this widget changes.
+  ///
+  /// See also:
+  ///
+  ///  * [StatefulWidget.didChangeDependencies].
   final Function didChangeDependencies;
 
   /// A widget that provides [initState], [didUpdateWidget] and
   /// [didChangeDependencies] call in a stateless widget.
+  ///
+  /// The parameter `child` must not be null.
   StatefulWrapper({
     Key key,
     @required this.child,

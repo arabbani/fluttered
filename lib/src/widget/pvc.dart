@@ -41,18 +41,20 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   /// improve performance significantly in some cases.
   final Widget immutableTree;
 
-  /// Called when this widget is inserted into the tree.
-  ///
-  /// `onInit` is used to perform some initialization on the
-  /// controller, if needed.
-  ///
-  /// Must not be null.
+  /// Called when this widget is inserted into the tree. `onInit` is used
+  /// to perform some initialization on the controller, if needed.
   ///
   /// The framework will call this method exactly once.
+  ///
+  /// See also:
+  ///
+  ///  * [StatefulWidget.initState] for more info.
   final _OnInit<T> onInit;
 
   /// Creates a [StatelessWidget] using [ChangeNotifierProvider], and
   /// bind the [controller] to it.
+  ///
+  /// The parameters `controller` and `builder` must not be null.
   const MutablePVC({
     Key key,
     @required this.controller,
@@ -100,14 +102,14 @@ class ImmutablePVC<T> extends StatelessWidget {
   /// Must not be null.
   final Widget Function(BuildContext context, T controller) builder;
 
-  /// Called when this widget is inserted into the tree.
-  ///
-  /// `onInit` is used to perform some initialization on the
-  /// controller, if needed.
-  ///
-  /// Must not be null.
+  /// Called when this widget is inserted into the tree. `onInit` is used
+  /// to perform some initialization on the controller, if needed.
   ///
   /// The framework will call this method exactly once.
+  ///
+  /// See also:
+  ///
+  ///  * [StatefulWidget.initState] for more info.
   final _OnInit<T> onInit;
 
   /// This method is called when this widget is removed from the tree.
@@ -115,9 +117,15 @@ class ImmutablePVC<T> extends StatelessWidget {
   /// If you need to cleanup resources, like close a database connection
   /// or close a opened file etc, create a `dispose` method on the
   /// [controller] and pass it as dispose argument.
+  ///
+  /// See also:
+  ///
+  ///  * [StatefulWidget.dispose] for more info.
   final Widget Function(BuildContext context, T controller) dispose;
 
   /// Creates a [StatelessWidget] using [Provider], and bind the [controller] to it.
+  ///
+  /// The parameters `controller` and `builder` must not be null.
   const ImmutablePVC({
     Key key,
     @required this.controller,

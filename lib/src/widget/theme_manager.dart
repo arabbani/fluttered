@@ -15,6 +15,8 @@ class ThemeManager extends StatefulWidget {
   final _ThemedWidgetBuilder builder;
 
   /// Manages the app theme.
+  ///
+  /// The parameter `builder` must not be null.
   const ThemeManager({Key key, @required this.builder})
       : assert(builder != null, 'child must not be null'),
         super(key: key);
@@ -34,7 +36,9 @@ class ThemeManagerState extends State<ThemeManager> {
   void initState() {
     assert(themeConfig != null,
         'themeConfig cannot be null. See docs how to config ThemeManager');
-    _initTheme();
+    if (mounted) {
+      _initTheme();
+    }
     super.initState();
   }
 
