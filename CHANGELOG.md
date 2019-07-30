@@ -25,7 +25,7 @@ and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` ins
 
 **New Features:**
 -`ThemeManager` widget added.
-- `didUpdateWidget` and `didChangeDependencies` parameter added to `StatefulWrapper`.
+- `didUpdateWidget` parameter added to `StatefulWrapper`.
 - Utility methods to calculate `width` and `height` based on `screenSize` added.
 
 

@@ -4,10 +4,11 @@ import 'package:example/src/util/theme.dart';
 
 void main() {
   flutteredConfig(
-      theme: ThemeConfig(
-    availableThemes: availableThemes,
-    defaultTheme: defaultTheme,
-  ));
+    theme: ThemeConfig(
+      availableThemes: availableThemes,
+      defaultTheme: defaultTheme,
+    ),
+  );
   runApp(MyApp());
 }
 

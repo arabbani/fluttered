@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttered/src/config/fluttered_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,16 +8,16 @@ typedef _ThemedWidgetBuilder = Widget Function(
 
 // TODO: Replace SharedPreferences with custom implementation.
 
-/// Manages the app theme.
+/// Dynamically manages the app theme at runtime.
 class ThemeManager extends StatefulWidget {
-  /// Build a widget tree based on the selected [_theme].
+  /// Build a widget tree based on the selected theme.
   ///
   /// Must not be null.
   final _ThemedWidgetBuilder builder;
 
-  /// Manages the app theme.
+  /// Dynamically manages the app theme at runtime.
   ///
-  /// The parameter `builder` must not be null.
+  /// The parameter [builder] must not be null.
   const ThemeManager({Key key, @required this.builder})
       : assert(builder != null, 'child must not be null'),
         super(key: key);
@@ -49,13 +50,16 @@ class ThemeManagerState extends State<ThemeManager> {
 
   /// Set the theme.
   void setTheme(String name) {
-    if (themeConfig.selectedTheme != name) {
+    if (selectedThemeName != name) {
       setState(() {
         themeConfig.selectedTheme = name;
       });
       _setThemePref(name);
     }
   }
+
+  /// Name of the selected theme.
+  String get selectedThemeName => themeConfig.selectedTheme;
 
   Future<String> _getThemePref() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -68,10 +72,14 @@ class ThemeManagerState extends State<ThemeManager> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return widget.builder(
-      context,
-      themeConfig.availableThemes[themeConfig.selectedTheme],
-    );
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('selectedTheme', selectedThemeName));
   }
+
+  @override
+  Widget build(BuildContext context) => widget.builder(
+        context,
+        themeConfig.availableThemes[selectedThemeName],
+      );
 }
