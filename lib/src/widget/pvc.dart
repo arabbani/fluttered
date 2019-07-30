@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttered/src/widget/stateful_wrapper.dart';
 import 'package:provider/provider.dart';
@@ -84,6 +85,14 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty('controller', controller),
+    );
+  }
 }
 
 /// `ImmutablePVC`, as the name suggests, is immutable.
@@ -156,6 +165,14 @@ class ImmutablePVC<T> extends StatelessWidget {
           Provider.of<T>(context, listen: false),
         ),
       ),
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty('controller', controller),
     );
   }
 }

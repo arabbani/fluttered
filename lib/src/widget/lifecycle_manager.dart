@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 
-var _lifecycleState = StreamController<AppLifecycleState>();
+StreamController<AppLifecycleState> _lifecycleState;
 
-var currentLifecycleState = _lifecycleState.stream;
+Stream<AppLifecycleState> currentLifecycleState;
 
 class LifecycleManager extends StatefulWidget {
   @override
@@ -16,11 +16,14 @@ class _LifecycleManagerState extends State<LifecycleManager>
   @override
   void initState() {
     super.initState();
+    _lifecycleState = StreamController();
+    currentLifecycleState = _lifecycleState.stream;
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
+    _lifecycleState?.close();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

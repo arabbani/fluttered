@@ -61,6 +61,8 @@ class ThemeManagerState extends State<ThemeManager> {
   /// Name of the selected theme.
   String get selectedThemeName => themeConfig.selectedTheme;
 
+  ThemeData get selectedTheme => themeConfig.availableThemes[selectedThemeName];
+
   Future<String> _getThemePref() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('theme');
@@ -72,14 +74,16 @@ class ThemeManagerState extends State<ThemeManager> {
   }
 
   @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(StringProperty('selectedTheme', selectedThemeName));
-  }
+  Widget build(BuildContext context) => widget.builder(context, selectedTheme);
 
   @override
-  Widget build(BuildContext context) => widget.builder(
-        context,
-        themeConfig.availableThemes[selectedThemeName],
-      );
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      StringProperty('selectedThemeName', selectedThemeName),
+    );
+    properties.add(
+      DiagnosticsProperty('selectedTheme', selectedTheme),
+    );
+  }
 }
