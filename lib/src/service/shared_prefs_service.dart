@@ -59,8 +59,6 @@ class SharedPrefsService {
     return removed;
   }
 
-  /// Clears the persistent storage.
-  Future<bool> clear() {
-    return _preferences.clear();
-  }
+  /// Clear the persistent storage.
+  Future<bool> clear() => _preferences.clear();
 }

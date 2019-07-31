@@ -80,7 +80,7 @@ class ThemeManagerState extends State<ThemeManager> {
     );
     properties.add(
       DiagnosticsProperty(
-          'selectedTheme', widget.availableThemes[_selectedTheme]),
+          'selectedThemeData', widget.availableThemes[_selectedTheme]),
     );
   }
 }
