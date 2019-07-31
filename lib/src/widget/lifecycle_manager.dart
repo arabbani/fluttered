@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
+import 'package:fluttered/src/global/public_instance.dart';
 
 StreamController<AppLifecycleState> _lifecycleStateController;
-
-/// Stream of application lifecycle states.
-Stream<AppLifecycleState> lifecycleStateStream;
 
 /// Manages the application lifecycle states.
 class LifecycleManager extends StatefulWidget {

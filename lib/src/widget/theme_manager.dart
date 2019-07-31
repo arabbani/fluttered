@@ -46,12 +46,6 @@ class ThemeManagerState extends State<ThemeManager> {
     }
   }
 
-  void _setSelectedTheme(String name) {
-    setState(() {
-      themeConfig.selectedTheme = name;
-    });
-  }
-
   /// Set the theme.
   void setTheme(String name) {
     if (selectedThemeName != name) {
@@ -63,14 +57,20 @@ class ThemeManagerState extends State<ThemeManager> {
   /// Name of the selected theme.
   String get selectedThemeName => themeConfig.selectedTheme;
 
+  @override
+  Widget build(BuildContext context) => widget.builder(context, _selectedTheme);
+
   void _storeThemeName(String theme) =>
       sharedPrefsServiceInstance.set(_themeStorageKey, theme);
 
   ThemeData get _selectedTheme =>
       themeConfig.availableThemes[selectedThemeName];
 
-  @override
-  Widget build(BuildContext context) => widget.builder(context, _selectedTheme);
+  void _setSelectedTheme(String name) {
+    setState(() {
+      themeConfig.selectedTheme = name;
+    });
+  }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
