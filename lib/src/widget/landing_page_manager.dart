@@ -4,7 +4,7 @@ import 'package:fluttered/src/global/public_instance.dart';
 
 /// Directs user to [homeScreen] or [loginScreen] based on
 /// whether user is logged in or not.
-class LandingPage extends StatelessWidget {
+class LandingPageManager extends StatelessWidget {
   /// The homepage of the application.
   ///
   /// Must not be null.
@@ -23,7 +23,7 @@ class LandingPage extends StatelessWidget {
 
   /// Directs user to [homeScreen] or [loginScreen] based on
   /// whether user is logged in or not.
-  LandingPage({
+  LandingPageManager({
     Key key,
     @required this.homeScreen,
     @required this.requireLogin,

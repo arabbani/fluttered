@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           title: 'Fluttered',
           theme: theme,
           onGenerateRoute: RouteGenerator.generateRoute,
-          home: LandingPage(
+          home: LandingPageManager(
             homeScreen: HomePage(title: 'Fluttered'),
             requireLogin: true,
             loggedInKey: loggedInKey,
