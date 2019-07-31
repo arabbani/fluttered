@@ -4,8 +4,6 @@ import 'package:fluttered/src/global/public_instance.dart';
 /// Directs user to [homeScreen] or [loginScreen] based on
 /// whether user is logged in or not.
 class LandingPage extends StatelessWidget {
-  // final _prefs = Prefs();
-
   /// The homepage of the application.
   ///
   /// Must not be null.
@@ -15,12 +13,15 @@ class LandingPage extends StatelessWidget {
   final bool requireLogin;
 
   /// The persistence storage `key` used to store whether
-  /// user is logged in.
+  /// user is logged in. Use the same key throughout your
+  /// application.
   final String loggedInKey;
 
   /// The login screen.
   final Widget loginScreen;
 
+  /// Directs user to [homeScreen] or [loginScreen] based on
+  /// whether user is logged in or not.
   LandingPage({
     Key key,
     @required this.homeScreen,
