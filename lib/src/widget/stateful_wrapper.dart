@@ -37,7 +37,7 @@ class StatefulWrapper extends StatefulWidget {
     this.initState,
     this.didUpdateWidget,
   })  : assert(child != null, 'child must not be null'),
-        assert(initState != null && didUpdateWidget != null,
+        assert(initState != null || didUpdateWidget != null,
             'Atleast one of initState and didUpdateWidget must be provided'),
         super(key: key);
 

@@ -1,6 +1,9 @@
 import 'package:flutter/widgets.dart';
+import 'package:fluttered/src/util/prefs.dart';
 
 class LandingPage extends StatelessWidget {
+  final _prefs = Prefs();
+
   /// The homepage of the application.
   ///
   /// Must not be null.
@@ -16,16 +19,25 @@ class LandingPage extends StatelessWidget {
   /// The login screen.
   final Widget loginScreen;
 
-  const LandingPage({
+  LandingPage({
     Key key,
     @required this.homeScreen,
     @required this.requireLogin,
     this.loggedInKey,
     this.loginScreen,
-  }) : super(key: key);
+  })  : assert(
+          !requireLogin || (loggedInKey != null && loginScreen != null),
+          'loggedInKey and loginScreen mustr be provided when requireLogin = true',
+        ),
+        super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container();
+  Widget build(BuildContext context) => _getLandingScreen();
+
+  Widget _getLandingScreen() {
+    return homeScreen;
+    // if (!requireLogin) {
+    // }
+    // var loggedIn = await _prefs.getBool(loggedInKey);
   }
 }
