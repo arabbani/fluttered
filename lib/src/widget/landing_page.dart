@@ -1,8 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:fluttered/src/util/prefs.dart';
 
 class LandingPage extends StatelessWidget {
-  final _prefs = Prefs();
+  // final _prefs = Prefs();
 
   /// The homepage of the application.
   ///

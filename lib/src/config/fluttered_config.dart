@@ -5,7 +5,7 @@ import 'package:fluttered/src/service/shared_prefs_service.dart';
 ThemeConfig themeConfig;
 
 /// Set Global configurations for fluttered.
-void flutteredConfig({
+Future<void> flutteredConfig({
   ThemeConfig theme,
   bool configureSharedPreferences = false,
 }) async {

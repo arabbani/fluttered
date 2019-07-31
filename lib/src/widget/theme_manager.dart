@@ -1,12 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttered/src/config/fluttered_config.dart';
-import 'package:fluttered/src/util/prefs.dart';
+import 'package:fluttered/src/config/private_instances.dart';
 
 typedef _ThemedWidgetBuilder = Widget Function(
     BuildContext context, ThemeData theme);
-
-// TODO: Replace SharedPreferences with custom implementation.
 
 /// Dynamically manages the application theme at runtime.
 class ThemeManager extends StatefulWidget {
@@ -29,7 +27,6 @@ class ThemeManager extends StatefulWidget {
 }
 
 class ThemeManagerState extends State<ThemeManager> {
-  final _prefs = Prefs();
   final _themeStorageKey = 'selectedTheme';
 
   @override
@@ -38,14 +35,10 @@ class ThemeManagerState extends State<ThemeManager> {
     assert(themeConfig != null,
         'themeConfig cannot be null. See docs how to config ThemeManager');
     if (mounted) {
-      _initTheme();
-    }
-  }
-
-  _initTheme() async {
-    var theme = await _prefs.getString(_themeStorageKey);
-    if (theme != null) {
-      setTheme(theme);
+      var theme = sharedPrefsServiceInstance.get(_themeStorageKey);
+      if (theme != null) {
+        setTheme(theme);
+      }
     }
   }
 
@@ -55,7 +48,7 @@ class ThemeManagerState extends State<ThemeManager> {
       setState(() {
         themeConfig.selectedTheme = name;
       });
-      _prefs.setString(_themeStorageKey, name);
+      sharedPrefsServiceInstance.set(_themeStorageKey, name);
     }
   }
 

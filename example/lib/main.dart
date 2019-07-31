@@ -3,12 +3,13 @@ import 'package:example/src/util/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttered/fluttered.dart';
 
-void main() {
-  flutteredConfig(
+void main() async {
+  await flutteredConfig(
     theme: ThemeConfig(
       availableThemes: availableThemes,
       defaultTheme: defaultTheme,
     ),
+    configureSharedPreferences: true,
   );
   runApp(MyApp());
 }
