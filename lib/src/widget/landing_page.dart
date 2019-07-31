@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttered/src/global/public_instance.dart';
 
@@ -45,5 +46,16 @@ class LandingPage extends StatelessWidget {
       }
     }
     return homeScreen;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      FlagProperty('requireLogin', value: requireLogin),
+    );
+    properties.add(
+      StringProperty('loggedInKey', loggedInKey),
+    );
   }
 }

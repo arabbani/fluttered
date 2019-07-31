@@ -1,4 +1,7 @@
 import 'package:example/src/screen/home_page.dart';
+import 'package:example/src/screen/login_page.dart';
+import 'package:example/src/util/route_generator.dart';
+import 'package:example/src/util/storage_key.dart';
 import 'package:example/src/util/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttered/fluttered.dart';
@@ -24,7 +27,13 @@ class MyApp extends StatelessWidget {
         builder: (context, theme) => MaterialApp(
           title: 'Fluttered',
           theme: theme,
-          home: HomePage(title: 'Fluttered'),
+          onGenerateRoute: RouteGenerator.generateRoute,
+          home: LandingPage(
+            homeScreen: HomePage(title: 'Fluttered'),
+            requireLogin: true,
+            loggedInKey: loggedInKey,
+            loginScreen: LoginPage(),
+          ),
         ),
       ),
     );
