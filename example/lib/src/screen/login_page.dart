@@ -7,7 +7,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    sharedPrefsServiceInstance.clear();
     return Scaffold(
       appBar: AppBar(
         title: Text('Login Page'),
