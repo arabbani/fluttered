@@ -27,12 +27,12 @@ and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` ins
 - `didUpdateWidget` parameter added to `StatefulWrapper`.
 
 **New Widgets:**
--ThemeManager
--LifecycleManager
--LandingPageManager
+- ThemeManager
+- LifecycleManager
+- LandingPageManager
 
 **New Services:**
--SharedPrefsService
+- SharedPrefsService
 
 **Others:**
 - Utility methods to calculate `width` and `height` based on `screenSize` added.
