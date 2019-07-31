@@ -1,21 +1,21 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttered/src/config/fluttered_config.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttered/src/util/prefs.dart';
 
 typedef _ThemedWidgetBuilder = Widget Function(
     BuildContext context, ThemeData theme);
 
 // TODO: Replace SharedPreferences with custom implementation.
 
-/// Dynamically manages the app theme at runtime.
+/// Dynamically manages the application theme at runtime.
 class ThemeManager extends StatefulWidget {
   /// Build a widget tree based on the selected theme.
   ///
   /// Must not be null.
   final _ThemedWidgetBuilder builder;
 
-  /// Dynamically manages the app theme at runtime.
+  /// Dynamically manages the application theme at runtime.
   const ThemeManager({Key key, @required this.builder})
       : assert(builder != null, 'child must not be null'),
         super(key: key);
@@ -29,6 +29,9 @@ class ThemeManager extends StatefulWidget {
 }
 
 class ThemeManagerState extends State<ThemeManager> {
+  final _prefs = Prefs();
+  final _themeStorageKey = 'selectedTheme';
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +43,7 @@ class ThemeManagerState extends State<ThemeManager> {
   }
 
   _initTheme() async {
-    var theme = await _getThemePref();
+    var theme = await _prefs.getString(_themeStorageKey);
     if (theme != null) {
       setTheme(theme);
     }
@@ -52,27 +55,18 @@ class ThemeManagerState extends State<ThemeManager> {
       setState(() {
         themeConfig.selectedTheme = name;
       });
-      _setThemePref(name);
+      _prefs.setString(_themeStorageKey, name);
     }
   }
 
   /// Name of the selected theme.
   String get selectedThemeName => themeConfig.selectedTheme;
 
-  ThemeData get selectedTheme => themeConfig.availableThemes[selectedThemeName];
-
-  Future<String> _getThemePref() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('theme');
-  }
-
-  void _setThemePref(String name) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('theme', name);
-  }
+  ThemeData get _selectedTheme =>
+      themeConfig.availableThemes[selectedThemeName];
 
   @override
-  Widget build(BuildContext context) => widget.builder(context, selectedTheme);
+  Widget build(BuildContext context) => widget.builder(context, _selectedTheme);
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -81,7 +75,7 @@ class ThemeManagerState extends State<ThemeManager> {
       StringProperty('selectedThemeName', selectedThemeName),
     );
     properties.add(
-      DiagnosticsProperty('selectedTheme', selectedTheme),
+      DiagnosticsProperty('selectedTheme', _selectedTheme),
     );
   }
 }

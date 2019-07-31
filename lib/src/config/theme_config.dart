@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Configures the app theme.
+/// Configures the application theme.
 class ThemeConfig {
   /// A `Map` containing the name of the theme and the corresponding [ThemeData].
   /// [ThemeManager] will switch between these themes whenever necessary.
@@ -9,7 +9,7 @@ class ThemeConfig {
   /// Name of the default theme.
   String selectedTheme;
 
-  /// Configures the app theme.
+  /// Configures the application theme.
   ThemeConfig({
     @required this.availableThemes,
     @required var defaultTheme,
