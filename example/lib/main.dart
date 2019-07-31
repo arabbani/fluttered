@@ -7,12 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttered/fluttered.dart';
 
 void main() async {
-  await flutteredConfig(
-    theme: ThemeConfig(
-      availableThemes: availableThemes,
-      defaultTheme: defaultTheme,
-    ),
-  );
+  await flutteredConfig();
   runApp(MyApp());
 }
 
@@ -23,6 +18,8 @@ class MyApp extends StatelessWidget {
       onPaused: () => print('PAUSED'),
       onResumed: () => print('RESUMED'),
       child: ThemeManager(
+        availableThemes: availableThemes,
+        defaultTheme: defaultTheme,
         builder: (context, theme) => MaterialApp(
           title: 'Fluttered',
           theme: theme,
