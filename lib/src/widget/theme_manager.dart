@@ -16,8 +16,6 @@ class ThemeManager extends StatefulWidget {
   final _ThemedWidgetBuilder builder;
 
   /// Dynamically manages the app theme at runtime.
-  ///
-  /// The parameter [builder] must not be null.
   const ThemeManager({Key key, @required this.builder})
       : assert(builder != null, 'child must not be null'),
         super(key: key);

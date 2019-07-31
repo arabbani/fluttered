@@ -4,8 +4,10 @@ import 'package:flutter/widgets.dart';
 
 StreamController<AppLifecycleState> _lifecycleStateController;
 
-Stream<AppLifecycleState> lifecycleState;
+/// Stream of application lifecycle states.
+Stream<AppLifecycleState> lifecycleStateStream;
 
+/// Manages the application lifecycle states.
 class LifecycleManager extends StatefulWidget {
   /// The widget below this widget in the tree.
   ///
@@ -13,16 +15,33 @@ class LifecycleManager extends StatefulWidget {
   final Widget child;
 
   /// Called when the application is paused.
+  ///
+  /// See also:
+  ///
+  ///  * [AppLifecycleState] for more info.
   final VoidCallback onPaused;
 
   /// Called when the application is resumed.
+  ///
+  /// See also:
+  ///
+  ///  * [AppLifecycleState] for more info.
   final VoidCallback onResumed;
 
+  /// Called when the application is suspending.
+  ///
+  /// See also:
+  ///
+  ///  * [AppLifecycleState] for more info.
+  final VoidCallback onSuspending;
+
+  /// Manages the application lifecycle states.
   const LifecycleManager({
     Key key,
     @required this.child,
     this.onPaused,
     this.onResumed,
+    this.onSuspending,
   })  : assert(child != null, 'child must not be null'),
         super(key: key);
 
@@ -36,13 +55,14 @@ class _LifecycleManagerState extends State<LifecycleManager>
   void initState() {
     super.initState();
     _lifecycleStateController = StreamController();
-    lifecycleState = _lifecycleStateController.stream;
+    lifecycleStateStream = _lifecycleStateController.stream;
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     _lifecycleStateController?.close();
+    lifecycleStateStream = null;
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -56,6 +76,9 @@ class _LifecycleManagerState extends State<LifecycleManager>
         break;
       case AppLifecycleState.resumed:
         widget.onResumed?.call();
+        break;
+      case AppLifecycleState.suspending:
+        widget.onSuspending?.call();
         break;
       default:
     }

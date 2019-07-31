@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: StreamBuilder(
-          stream: lifecycleState,
+          stream: lifecycleStateStream,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Text('WAITING');
