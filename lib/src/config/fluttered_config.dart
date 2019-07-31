@@ -1,6 +1,6 @@
 import 'package:fluttered/src/config/private_instances.dart';
 import 'package:fluttered/src/config/theme_config.dart';
-import 'package:fluttered/src/service/shared_prefs.dart';
+import 'package:fluttered/src/service/shared_prefs_service.dart';
 
 ThemeConfig themeConfig;
 
@@ -12,6 +12,6 @@ void flutteredConfig({
   themeConfig = theme;
 
   if (configureSharedPreferences) {
-    sharedPrefsInstance = SharedPrefs();
+    sharedPrefsServiceInstance = SharedPrefsService();
   }
 }

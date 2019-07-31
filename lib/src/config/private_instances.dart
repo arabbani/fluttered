@@ -1,3 +1,3 @@
-import 'package:fluttered/src/service/shared_prefs.dart';
+import 'package:fluttered/src/service/shared_prefs_service.dart';
 
-SharedPrefs sharedPrefsInstance;
+SharedPrefsService sharedPrefsServiceInstance;
