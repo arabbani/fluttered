@@ -8,10 +8,10 @@ ThemeConfig themeConfig;
 void flutteredConfig({
   ThemeConfig theme,
   bool configureSharedPreferences = false,
-}) {
+}) async {
   themeConfig = theme;
 
   if (configureSharedPreferences) {
-    sharedPrefsServiceInstance = SharedPrefsService();
+    sharedPrefsServiceInstance = await SharedPrefsService.instance();
   }
 }

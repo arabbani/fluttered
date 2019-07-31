@@ -17,7 +17,8 @@ class Prefs {
 
   void setString(String key, String value) async {
     var prefs = await _getInstance();
-    prefs.setString(key, value);
+    var t = await prefs.setString(key, value);
+    print(t.toString());
   }
 
   Future<bool> getBool(String key) async {

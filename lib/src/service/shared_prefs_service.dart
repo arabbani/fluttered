@@ -6,7 +6,7 @@ class SharedPrefsService {
   static SharedPrefsService _instance;
   static SharedPreferences _preferences;
 
-  static Future<SharedPrefsService> getInstance() async {
+  static Future<SharedPrefsService> instance() async {
     if (_instance == null) {
       _instance = SharedPrefsService();
     }
@@ -21,26 +21,41 @@ class SharedPrefsService {
   /// If [value] is null, this wil remove the [key] entry from persistent storage.
   ///
   /// Supported [value] types: `int`, `double`, `String`, `bool` and `List<String>`,
-  void set<T>(String key, T value) {
+  Future<bool> set<T>(String key, T value) async {
+    print(
+        '(TRACE) Fluttered_SharedPrefsService:: set() => key: $key, value: $value');
+    bool success;
     if (value is int) {
-      _preferences.setInt(key, value);
+      success = await _preferences.setInt(key, value);
     } else if (value is double) {
-      _preferences.setDouble(key, value);
+      success = await _preferences.setDouble(key, value);
     } else if (value is String) {
-      _preferences.setString(key, value);
+      success = await _preferences.setString(key, value);
     } else if (value is bool) {
-      _preferences.setBool(key, value);
+      success = await _preferences.setBool(key, value);
     } else if (value is List<String>) {
-      _preferences.setStringList(key, value);
+      success = await _preferences.setStringList(key, value);
     } else {
       assert(false,
           '(ERROR) Fluttered_SharedPrefsService:: set() => unsupported value type');
     }
-    print(
-        '(TRACE) Fluttered_SharedPrefsService:: set() => key: $key value: $value');
+    if (!success) {
+      assert(false,
+          '(ERROR) Fluttered_SharedPrefsService:: set() => unable to store key: $key, value: $value');
+    }
+    return success;
   }
 
-  T get<T>(String key) {
-    return _preferences.get(key);
+  dynamic get(String key) => _preferences.get(key);
+
+  /// Removes an entry from persistent storage.
+  Future<bool> remove(String key) async {
+    print('(TRACE) Fluttered_SharedPrefsService:: remove() => key: $key');
+    var removed = await _preferences.remove(key);
+    if (!removed) {
+      assert(false,
+          '(ERROR) Fluttered_SharedPrefsService:: remove() => unable to remove key: $key');
+    }
+    return removed;
   }
 }
