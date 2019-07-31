@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttered/src/config/fluttered_config.dart';
-import 'package:fluttered/src/config/private_instances.dart';
+import 'package:fluttered/src/global/private_instance.dart';
+import 'package:fluttered/src/global/public_instance.dart';
 
 typedef _ThemedWidgetBuilder = Widget Function(
     BuildContext context, ThemeData theme);

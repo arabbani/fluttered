@@ -1,8 +1,7 @@
-import 'package:fluttered/src/config/private_instances.dart';
-import 'package:fluttered/src/config/theme_config.dart';
+import 'package:fluttered/src/global/private_instance.dart';
+import 'package:fluttered/src/global/public_instance.dart';
+import 'package:fluttered/src/model/theme_config.dart';
 import 'package:fluttered/src/service/shared_prefs_service.dart';
-
-ThemeConfig themeConfig;
 
 /// Set Global configurations for fluttered.
 Future<void> flutteredConfig({
@@ -10,7 +9,6 @@ Future<void> flutteredConfig({
   bool configureSharedPreferences = false,
 }) async {
   themeConfig = theme;
-
   if (configureSharedPreferences) {
     sharedPrefsServiceInstance = await SharedPrefsService.instance();
   }
