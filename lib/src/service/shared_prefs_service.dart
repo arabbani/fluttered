@@ -1,4 +1,3 @@
-import 'package:fluttered/src/util/misc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Manage the persistent storage. Used to store simple data
@@ -37,7 +36,8 @@ class SharedPrefsService {
       assert(false,
           '(ERROR) Fluttered_SharedPrefsService:: set() => unsupported value type');
     }
-    printTrace('set() => key: $key value: $value');
+    print(
+        '(TRACE) Fluttered_SharedPrefsService:: set() => key: $key value: $value');
   }
 
   T get<T>(String key) {
