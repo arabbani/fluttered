@@ -37,23 +37,34 @@ class ThemeManagerState extends State<ThemeManager> {
     if (mounted) {
       var theme = sharedPrefsServiceInstance.get(_themeStorageKey);
       if (theme != null) {
-        setTheme(theme);
+        if (selectedThemeName != theme) {
+          _setSelectedTheme(theme);
+        }
+      } else {
+        _storeThemeName(selectedThemeName);
       }
     }
+  }
+
+  void _setSelectedTheme(String name) {
+    setState(() {
+      themeConfig.selectedTheme = name;
+    });
   }
 
   /// Set the theme.
   void setTheme(String name) {
     if (selectedThemeName != name) {
-      setState(() {
-        themeConfig.selectedTheme = name;
-      });
-      sharedPrefsServiceInstance.set(_themeStorageKey, name);
+      _setSelectedTheme(name);
+      _storeThemeName(name);
     }
   }
 
   /// Name of the selected theme.
   String get selectedThemeName => themeConfig.selectedTheme;
+
+  void _storeThemeName(String theme) =>
+      sharedPrefsServiceInstance.set(_themeStorageKey, theme);
 
   ThemeData get _selectedTheme =>
       themeConfig.availableThemes[selectedThemeName];

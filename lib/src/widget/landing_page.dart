@@ -1,5 +1,8 @@
 import 'package:flutter/widgets.dart';
+import 'package:fluttered/src/global/public_instance.dart';
 
+/// Directs user to [homeScreen] or [loginScreen] based on
+/// whether user is logged in or not.
 class LandingPage extends StatelessWidget {
   // final _prefs = Prefs();
 
@@ -26,7 +29,7 @@ class LandingPage extends StatelessWidget {
     this.loginScreen,
   })  : assert(
           !requireLogin || (loggedInKey != null && loginScreen != null),
-          'loggedInKey and loginScreen mustr be provided when requireLogin = true',
+          'loggedInKey and loginScreen must be provided when requireLogin = true',
         ),
         super(key: key);
 
@@ -34,9 +37,12 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) => _getLandingScreen();
 
   Widget _getLandingScreen() {
+    if (requireLogin) {
+      var loggedIn = sharedPrefsServiceInstance.get(loggedInKey) ?? false;
+      if (!loggedIn) {
+        return loginScreen;
+      }
+    }
     return homeScreen;
-    // if (!requireLogin) {
-    // }
-    // var loggedIn = await _prefs.getBool(loggedInKey);
   }
 }
