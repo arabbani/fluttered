@@ -6,10 +6,9 @@ import 'package:fluttered/src/service/shared_prefs_service.dart';
 /// Set Global configurations for fluttered.
 Future<void> flutteredConfig({
   ThemeConfig theme,
-  bool configureSharedPreferences = false,
 }) async {
+  // Manadatory
+  sharedPrefsServiceInstance = await SharedPrefsService.instance();
+
   themeConfig = theme;
-  if (configureSharedPreferences) {
-    sharedPrefsServiceInstance = await SharedPrefsService.instance();
-  }
 }

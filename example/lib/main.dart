@@ -12,7 +12,6 @@ void main() async {
       availableThemes: availableThemes,
       defaultTheme: defaultTheme,
     ),
-    configureSharedPreferences: true,
   );
   runApp(MyApp());
 }
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
           theme: theme,
           onGenerateRoute: RouteGenerator.generateRoute,
           home: LandingPageManager(
-            homeScreen: HomePage(title: 'Fluttered'),
+            homeScreen: HomePage(title: 'Home'),
             requireLogin: true,
             loggedInKey: loggedInKey,
             loginScreen: LoginPage(),

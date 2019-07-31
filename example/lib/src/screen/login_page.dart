@@ -7,6 +7,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    sharedPrefsServiceInstance.clear();
     return Scaffold(
       appBar: AppBar(
         title: Text('Login Page'),
@@ -16,7 +17,7 @@ class LoginPage extends StatelessWidget {
           child: Text('Login'),
           onPressed: () {
             sharedPrefsServiceInstance.set(loggedInKey, true);
-            Navigator.pushNamed(context, '/');
+            Navigator.pushReplacementNamed(context, 'home');
           },
         ),
       ),

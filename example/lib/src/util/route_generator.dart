@@ -6,8 +6,8 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // final arguments = settings.arguments;
     switch (settings.name) {
-      case '/':
-        return MaterialPageRoute(builder: (_) => HomePage());
+      case 'home':
+        return MaterialPageRoute(builder: (_) => HomePage(title: 'Home'));
       case 'login':
         return MaterialPageRoute(builder: (_) => LoginPage());
       default:
