@@ -29,7 +29,9 @@ class LandingPageManager extends StatelessWidget {
     @required this.requireLogin,
     this.loggedInKey,
     this.loginScreen,
-  })  : assert(
+  })  : assert(homeScreen != null, 'homeScreen must not be null'),
+        assert(requireLogin != null, 'requireLogin must not be null'),
+        assert(
           !requireLogin || (loggedInKey != null && loginScreen != null),
           'loggedInKey and loginScreen must be provided when requireLogin = true',
         ),
@@ -49,11 +51,7 @@ class LandingPageManager extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-      FlagProperty('requireLogin', value: requireLogin),
-    );
-    properties.add(
-      StringProperty('loggedInKey', loggedInKey),
-    );
+    properties.add(FlagProperty('requireLogin', value: requireLogin));
+    properties.add(StringProperty('loggedInKey', loggedInKey));
   }
 }

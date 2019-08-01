@@ -89,9 +89,7 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-      DiagnosticsProperty('controller', controller),
-    );
+    properties.add(DiagnosticsProperty('controller', controller));
   }
 }
 
@@ -171,8 +169,6 @@ class ImmutablePVC<T> extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-      DiagnosticsProperty('controller', controller),
-    );
+    properties.add(DiagnosticsProperty('controller', controller));
   }
 }

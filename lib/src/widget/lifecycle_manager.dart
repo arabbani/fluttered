@@ -1,9 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
-import 'package:fluttered/src/global/public_instance.dart';
-
-StreamController<AppLifecycleState> _lifecycleStateController;
 
 /// Manages the application lifecycle states.
 class LifecycleManager extends StatefulWidget {
@@ -45,10 +42,18 @@ class LifecycleManager extends StatefulWidget {
 
   @override
   _LifecycleManagerState createState() => _LifecycleManagerState();
+
+  static _LifecycleManagerState of(BuildContext context) =>
+      context.ancestorStateOfType(const TypeMatcher<_LifecycleManagerState>());
 }
 
 class _LifecycleManagerState extends State<LifecycleManager>
     with WidgetsBindingObserver {
+  StreamController<AppLifecycleState> _lifecycleStateController;
+
+  /// Stream of application lifecycle states.
+  Stream<AppLifecycleState> lifecycleStateStream;
+
   @override
   void initState() {
     super.initState();

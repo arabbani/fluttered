@@ -42,7 +42,7 @@ class ThemeManager extends StatefulWidget {
 }
 
 class _ThemeManagerState extends State<ThemeManager> {
-  final _themeStorageKey = 'selectedTheme';
+  final _themeStorageKey = 'fluttered_SelectedTheme';
   String _selectedTheme;
 
   @override
@@ -75,12 +75,8 @@ class _ThemeManagerState extends State<ThemeManager> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-      StringProperty('selectedThemeName', _selectedTheme),
-    );
-    properties.add(
-      DiagnosticsProperty(
-          'selectedThemeData', widget.availableThemes[_selectedTheme]),
-    );
+    properties.add(StringProperty('selectedThemeName', _selectedTheme));
+    properties.add(DiagnosticsProperty(
+        'selectedThemeData', widget.availableThemes[_selectedTheme]));
   }
 }

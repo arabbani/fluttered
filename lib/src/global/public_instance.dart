@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:fluttered/src/service/shared_prefs_service.dart';
 
 // INSTANCES
@@ -7,6 +6,3 @@ import 'package:fluttered/src/service/shared_prefs_service.dart';
 SharedPrefsService sharedPrefsServiceInstance;
 
 // STREAMS
-
-/// Stream of application lifecycle states.
-Stream<AppLifecycleState> lifecycleStateStream;

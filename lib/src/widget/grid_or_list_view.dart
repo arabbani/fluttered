@@ -8,6 +8,7 @@ enum ViewType {
   list,
 }
 
+/// Render ListView or GridView based on user preference.
 class GridOrListView extends StatefulWidget {
   /// Widget to render when [defaultView] is [ViewType.grid].
   ///
@@ -31,6 +32,7 @@ class GridOrListView extends StatefulWidget {
   /// on its own.
   final String persistentKey;
 
+  /// Render ListView or GridView based on user preference.
   const GridOrListView({
     Key key,
     @required this.gridView,
@@ -45,10 +47,8 @@ class GridOrListView extends StatefulWidget {
   @override
   _GridOrListViewState createState() => _GridOrListViewState();
 
-  static _GridOrListViewState of(BuildContext context) {
-    return context
-        .ancestorStateOfType(const TypeMatcher<_GridOrListViewState>());
-  }
+  static _GridOrListViewState of(BuildContext context) =>
+      context.ancestorStateOfType(const TypeMatcher<_GridOrListViewState>());
 }
 
 class _GridOrListViewState extends State<GridOrListView> {
@@ -82,12 +82,10 @@ class _GridOrListViewState extends State<GridOrListView> {
 
   @override
   Widget build(BuildContext context) {
-    switch (_selectedView) {
-      case ViewType.grid:
-        return widget.gridView;
-      case ViewType.list:
-        return widget.listView;
+    if (_selectedView == ViewType.grid) {
+      return widget.gridView;
     }
+    return widget.listView;
   }
 
   void _storeSelectedView(ViewType view) =>
@@ -96,8 +94,7 @@ class _GridOrListViewState extends State<GridOrListView> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-      EnumProperty('selectedView', _selectedView),
-    );
+    properties.add(EnumProperty('selectedView', _selectedView));
+    properties.add(EnumProperty('persistentKey', widget.persistentKey));
   }
 }
