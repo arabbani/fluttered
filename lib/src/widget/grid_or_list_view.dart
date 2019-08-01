@@ -29,7 +29,7 @@ class GridOrListView extends StatefulWidget {
   /// restart.
   ///
   /// If you use this widget more then once in your application,
-  /// provide different `persistentKey` to handle each widget
+  /// provide different [persistentKey] to handle each widget
   /// on its own.
   final String persistentKey;
 

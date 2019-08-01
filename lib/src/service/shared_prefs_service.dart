@@ -20,7 +20,7 @@ class SharedPrefsService {
   ///
   /// If [value] is null, this wil remove the [key] entry from persistent storage.
   ///
-  /// Supported [value] types: `int`, `double`, `String`, `bool` and `List<String>`,
+  /// Supported [value] types: [int], [double], [String], [bool] and [List<String>],
   Future<bool> set<T>(String key, T value) async {
     print(
         '(TRACE) Fluttered_SharedPrefsService:: set() => key: $key, value: $value');

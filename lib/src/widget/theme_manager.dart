@@ -9,7 +9,7 @@ typedef _ThemedWidgetBuilder = Widget Function(
 class ThemeManager extends StatefulWidget {
   /// Available themes of this application.
   ///
-  /// A `Map` containing the name of the theme and the corresponding [ThemeData].
+  /// A [Map] containing the name of the theme and the corresponding [ThemeData].
   ///
   /// [ThemeManager] will switch between these themes whenever necessary.
   final Map<String, ThemeData> availableThemes;
@@ -43,23 +43,25 @@ class ThemeManager extends StatefulWidget {
 
 class _ThemeManagerState extends State<ThemeManager> {
   final _themeStorageKey = 'fluttered_SelectedTheme';
-  String _selectedTheme;
+
+  /// Currently selected theme.
+  String selectedTheme;
 
   @override
   void initState() {
     super.initState();
-    _selectedTheme = sharedPrefsServiceInstance.get(_themeStorageKey);
-    if (_selectedTheme == null) {
-      _selectedTheme = widget.defaultTheme;
+    selectedTheme = sharedPrefsServiceInstance.get(_themeStorageKey);
+    if (selectedTheme == null) {
+      selectedTheme = widget.defaultTheme;
       _storeSelectedThemeName(widget.defaultTheme);
     }
   }
 
   /// Set the theme.
   void setTheme(String name) {
-    if (_selectedTheme != name) {
+    if (selectedTheme != name) {
       setState(() {
-        _selectedTheme = name;
+        selectedTheme = name;
       });
       _storeSelectedThemeName(name);
     }
@@ -67,7 +69,7 @@ class _ThemeManagerState extends State<ThemeManager> {
 
   @override
   Widget build(BuildContext context) =>
-      widget.builder(context, widget.availableThemes[_selectedTheme]);
+      widget.builder(context, widget.availableThemes[selectedTheme]);
 
   void _storeSelectedThemeName(String theme) =>
       sharedPrefsServiceInstance.set(_themeStorageKey, theme);
@@ -75,8 +77,8 @@ class _ThemeManagerState extends State<ThemeManager> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(StringProperty('selectedThemeName', _selectedTheme));
+    properties.add(StringProperty('selectedThemeName', selectedTheme));
     properties.add(DiagnosticsProperty(
-        'selectedThemeData', widget.availableThemes[_selectedTheme]));
+        'selectedThemeData', widget.availableThemes[selectedTheme]));
   }
 }

@@ -5,8 +5,8 @@ Size screenSize(BuildContext context) => MediaQuery.of(context).size;
 
 /// Calculate the height based on the screen height.
 ///
-/// This method divides the screen height into `split` equal parts,
-/// and assign `take` parts to the widget.
+/// This method divides the screen height into [split] equal parts,
+/// and assign [take] parts to the widget.
 ///
 /// For example, if you want your widget to takes 2/3rd of the
 /// screen height, use the method as below:
@@ -30,8 +30,8 @@ double calculateHeight(
 
 /// Calculate the width based on the screen width.
 ///
-/// This method divides the screen width into `split` equal parts,
-/// and assign `take` parts to the widget.
+/// This method divides the screen width into [split] equal parts,
+/// and assign [take] parts to the widget.
 ///
 /// For example, if you want your widget to take 3/4th of the
 /// screen width, use the method as below:

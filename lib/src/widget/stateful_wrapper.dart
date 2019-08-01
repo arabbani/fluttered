@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 /// callback in a [StatelessWidget].
 ///
 /// Instead of creating a [StatefulWidget] only to call `initState`,
-/// or `didUpdateWidget` use `StatefulWrapper` from a [StatelessWidget].
+/// or `didUpdateWidget` use [StatefulWrapper] from a [StatelessWidget].
 class StatefulWrapper extends StatefulWidget {
   /// The widget below this widget in the tree.
   ///
