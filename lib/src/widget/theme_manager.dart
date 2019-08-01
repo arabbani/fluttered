@@ -50,8 +50,8 @@ class ThemeManagerState extends State<ThemeManager> {
     super.initState();
     _selectedTheme = sharedPrefsServiceInstance.get(_themeStorageKey);
     if (_selectedTheme == null) {
-      _storeSelectedThemeName(widget.defaultTheme);
       _selectedTheme = widget.defaultTheme;
+      _storeSelectedThemeName(widget.defaultTheme);
     }
   }
 
