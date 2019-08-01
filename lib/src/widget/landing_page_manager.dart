@@ -36,9 +36,7 @@ class LandingPageManager extends StatelessWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context) => _getLandingScreen();
-
-  Widget _getLandingScreen() {
+  Widget build(BuildContext context) {
     if (requireLogin) {
       var loggedIn = sharedPrefsServiceInstance.get(loggedInKey) ?? false;
       if (!loggedIn) {

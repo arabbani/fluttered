@@ -34,14 +34,14 @@ class ThemeManager extends StatefulWidget {
         super(key: key);
 
   @override
-  ThemeManagerState createState() => ThemeManagerState();
+  _ThemeManagerState createState() => _ThemeManagerState();
 
-  static ThemeManagerState of(BuildContext context) {
-    return context.ancestorStateOfType(const TypeMatcher<ThemeManagerState>());
+  static _ThemeManagerState of(BuildContext context) {
+    return context.ancestorStateOfType(const TypeMatcher<_ThemeManagerState>());
   }
 }
 
-class ThemeManagerState extends State<ThemeManager> {
+class _ThemeManagerState extends State<ThemeManager> {
   final _themeStorageKey = 'selectedTheme';
   String _selectedTheme;
 
