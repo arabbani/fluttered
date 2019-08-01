@@ -1,3 +1,4 @@
+import 'package:example/src/screen/grid_or_list.dart';
 import 'package:example/src/screen/home_page.dart';
 import 'package:example/src/screen/login_page.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomePage(title: 'Home'));
       case 'login':
         return MaterialPageRoute(builder: (_) => LoginPage());
+      case 'gridOrList':
+        return MaterialPageRoute(builder: (_) => GridOrList());
       default:
         return _errorRoute();
     }

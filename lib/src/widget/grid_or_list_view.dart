@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttered/src/global/enum_to_string_converter.dart';
 import 'package:fluttered/src/global/public_instance.dart';
 
 /// Enum used with [GridOrListView] widget.
@@ -34,7 +35,7 @@ class GridOrListView extends StatefulWidget {
 
   /// Render ListView or GridView based on user preference.
   const GridOrListView({
-    Key key,
+    @required GlobalKey<GridOrListViewState> key,
     @required this.gridView,
     @required this.listView,
     this.defaultView = ViewType.grid,
@@ -45,21 +46,21 @@ class GridOrListView extends StatefulWidget {
         super(key: key);
 
   @override
-  _GridOrListViewState createState() => _GridOrListViewState();
-
-  static _GridOrListViewState of(BuildContext context) =>
-      context.ancestorStateOfType(const TypeMatcher<_GridOrListViewState>());
+  GridOrListViewState createState() => GridOrListViewState();
 }
 
-class _GridOrListViewState extends State<GridOrListView> {
+/// State object for [GridOrListView] widget.
+class GridOrListViewState extends State<GridOrListView> {
   ViewType _selectedView;
 
   @override
   void initState() {
     super.initState();
     if (widget.persistentKey != null) {
-      _selectedView = sharedPrefsServiceInstance.get(widget.persistentKey);
-      if (_selectedView == null) {
+      var storedView = sharedPrefsServiceInstance.get(widget.persistentKey);
+      if (storedView != null) {
+        _selectedView = enumFromString(ViewType.values, storedView);
+      } else {
         _selectedView = widget.defaultView;
         _storeSelectedView(widget.defaultView);
       }
@@ -88,8 +89,10 @@ class _GridOrListViewState extends State<GridOrListView> {
     return widget.listView;
   }
 
-  void _storeSelectedView(ViewType view) =>
-      sharedPrefsServiceInstance.set(widget.persistentKey, view.toString());
+  void _storeSelectedView(ViewType view) => sharedPrefsServiceInstance.set(
+        widget.persistentKey,
+        stringFromEnum(view),
+      );
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
