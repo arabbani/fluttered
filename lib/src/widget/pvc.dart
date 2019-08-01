@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttered/src/widget/stateful_wrapper.dart';
 import 'package:provider/provider.dart';
@@ -51,10 +52,9 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
   ///  * [StatefulWidget.initState] for more info.
   final _OnInit<T> onInit;
 
-  /// Creates a [StatelessWidget] using [ChangeNotifierProvider], and
-  /// bind the [controller] to it.
+  /// Create a widget using [ChangeNotifierProvider].
   ///
-  /// The parameters `controller` and `builder` must not be null.
+  /// The parameters [controller] and [builder] must not be null.
   const MutablePVC({
     Key key,
     @required this.controller,
@@ -83,6 +83,14 @@ class MutablePVC<T extends ChangeNotifier> extends StatelessWidget {
         builder: builder,
         child: immutableTree,
       ),
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty('controller', controller),
     );
   }
 }
@@ -123,9 +131,9 @@ class ImmutablePVC<T> extends StatelessWidget {
   ///  * [StatefulWidget.dispose] for more info.
   final Widget Function(BuildContext context, T controller) dispose;
 
-  /// Creates a [StatelessWidget] using [Provider], and bind the [controller] to it.
+  /// Create a widget using [Provider].
   ///
-  /// The parameters `controller` and `builder` must not be null.
+  /// The parameters [controller] and [builder] must not be null.
   const ImmutablePVC({
     Key key,
     @required this.controller,
@@ -157,6 +165,14 @@ class ImmutablePVC<T> extends StatelessWidget {
           Provider.of<T>(context, listen: false),
         ),
       ),
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty('controller', controller),
     );
   }
 }

@@ -1,24 +1,36 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttered/src/config/theme_config.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttered/src/global/public_instance.dart';
 
 typedef _ThemedWidgetBuilder = Widget Function(
     BuildContext context, ThemeData theme);
 
-// TODO: Replace SharedPreferences with custom implementation.
-
-/// Manages the app theme.
+/// Dynamically manages the application theme at runtime.
 class ThemeManager extends StatefulWidget {
-  /// Build a widget tree based on the selected [theme].
+  /// Available themes of this application.
+  ///
+  /// A `Map` containing the name of the theme and the corresponding [ThemeData].
+  ///
+  /// [ThemeManager] will switch between these themes whenever necessary.
+  final Map<String, ThemeData> availableThemes;
+
+  /// Name of the default theme.
+  final String defaultTheme;
+
+  /// Build a widget tree based on the selected theme.
   ///
   /// Must not be null.
   final _ThemedWidgetBuilder builder;
 
-  /// Manages the app theme.
-  ///
-  /// The parameter `builder` must not be null.
-  const ThemeManager({Key key, @required this.builder})
-      : assert(builder != null, 'child must not be null'),
+  /// Dynamically manages the application theme at runtime.
+  ThemeManager({
+    Key key,
+    @required this.availableThemes,
+    @required this.defaultTheme,
+    @required this.builder,
+  })  : assert(availableThemes != null, 'availableThemes must not be null'),
+        assert(defaultTheme != null, 'defaultTheme must not be null'),
+        assert(builder != null, 'child must not be null'),
         super(key: key);
 
   @override
@@ -30,43 +42,45 @@ class ThemeManager extends StatefulWidget {
 }
 
 class ThemeManagerState extends State<ThemeManager> {
-  ThemeData _theme;
+  final _themeStorageKey = 'selectedTheme';
+  String _selectedTheme;
 
   @override
   void initState() {
-    assert(themeConfig != null,
-        'themeConfig cannot be null. See docs how to config ThemeManager');
-    if (mounted) {
-      _initTheme();
-    }
     super.initState();
-  }
-
-  _initTheme() async {
-    var theme = await _getThemePref();
-    setTheme(theme ?? themeConfig.defaultTheme);
+    _selectedTheme = sharedPrefsServiceInstance.get(_themeStorageKey);
+    if (_selectedTheme == null) {
+      _selectedTheme = widget.defaultTheme;
+      _storeSelectedThemeName(widget.defaultTheme);
+    }
   }
 
   /// Set the theme.
   void setTheme(String name) {
-    setState(() {
-      _theme = themeConfig.availableThemes[name];
-    });
-    _setThemePref(name);
-  }
-
-  Future<String> _getThemePref() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('theme');
-  }
-
-  void _setThemePref(String name) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('theme', name);
+    if (_selectedTheme != name) {
+      setState(() {
+        _selectedTheme = name;
+      });
+      _storeSelectedThemeName(name);
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
-    return widget.builder(context, _theme);
+  Widget build(BuildContext context) =>
+      widget.builder(context, widget.availableThemes[_selectedTheme]);
+
+  void _storeSelectedThemeName(String theme) =>
+      sharedPrefsServiceInstance.set(_themeStorageKey, theme);
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      StringProperty('selectedThemeName', _selectedTheme),
+    );
+    properties.add(
+      DiagnosticsProperty(
+          'selectedThemeData', widget.availableThemes[_selectedTheme]),
+    );
   }
 }

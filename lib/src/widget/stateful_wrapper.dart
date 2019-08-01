@@ -1,11 +1,10 @@
 import 'package:flutter/widgets.dart';
 
-/// A widget that provides [initState], [didUpdateWidget] and
-/// [didChangeDependencies] call in a `StatelessWidget`.
+/// A widget that provides `initState` and `didUpdateWidget`
+/// callback in a [StatelessWidget].
 ///
-/// Instead of creating a `StatefulWidget` only to call
-/// `initState`, or `didUpdateWidget` or `didChangeDependencies`
-/// use `StatefulWrapper` from a `StatelessWidget`.
+/// Instead of creating a [StatefulWidget] only to call `initState`,
+/// or `didUpdateWidget` use `StatefulWrapper` from a [StatelessWidget].
 class StatefulWrapper extends StatefulWidget {
   /// The widget below this widget in the tree.
   ///
@@ -27,34 +26,20 @@ class StatefulWrapper extends StatefulWidget {
   ///  * [StatefulWidget.didUpdateWidget].
   final Function didUpdateWidget;
 
-  /// Called when a dependency of this widget changes.
+  /// Provides `initState` and `didUpdateWidget` callback in
+  /// a [StatelessWidget].
   ///
-  /// See also:
-  ///
-  ///  * [StatefulWidget.didChangeDependencies].
-  final Function didChangeDependencies;
-
-  /// A widget that provides [initState], [didUpdateWidget] and
-  /// [didChangeDependencies] call in a stateless widget.
-  ///
-  /// The parameter `child` must not be null.
-  StatefulWrapper({
+  /// The parameter [child] must not be null. Atleast one of
+  /// [initState] and [didUpdateWidget] must be provided.
+  const StatefulWrapper({
     Key key,
     @required this.child,
     this.initState,
     this.didUpdateWidget,
-    this.didChangeDependencies,
   })  : assert(child != null, 'child must not be null'),
-        super(key: key) {
-    if (this.initState == null &&
-        this.didUpdateWidget == null &&
-        this.didChangeDependencies == null) {
-      assert(
-        false,
-        'Atleast one of initState, didUpdateWidget and didChangeDependencies must be provided',
-      );
-    }
-  }
+        assert(initState != null || didUpdateWidget != null,
+            'Atleast one of initState and didUpdateWidget must be provided'),
+        super(key: key);
 
   @override
   _StatefulWrapperState createState() => _StatefulWrapperState();
@@ -63,24 +48,16 @@ class StatefulWrapper extends StatefulWidget {
 class _StatefulWrapperState extends State<StatefulWrapper> {
   @override
   void initState() {
-    widget.initState?.call();
     super.initState();
+    widget.initState?.call();
   }
 
   @override
   void didUpdateWidget(StatefulWrapper oldWidget) {
-    widget.didUpdateWidget?.call();
     super.didUpdateWidget(oldWidget);
+    widget.didUpdateWidget?.call();
   }
 
   @override
-  void didChangeDependencies() {
-    widget.didChangeDependencies?.call();
-    super.didChangeDependencies();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.child;
-  }
+  Widget build(BuildContext context) => widget.child;
 }

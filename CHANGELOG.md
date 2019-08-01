@@ -24,8 +24,17 @@ and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` ins
 - `onInit` parameter changed to `initState` in `StatefulWrapper`.
 
 **New Features:**
--`ThemeManager` widget added.
-- `didUpdateWidget` and `didChangeDependencies` parameter added to `StatefulWrapper`.
+- `didUpdateWidget` parameter added to `StatefulWrapper`.
+
+**New Widgets:**
+- ThemeManager
+- LifecycleManager
+- LandingPageManager
+
+**New Services:**
+- SharedPrefsService
+
+**Others:**
 - Utility methods to calculate `width` and `height` based on `screenSize` added.
 
 
