@@ -37,7 +37,11 @@ and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` ins
 **Others:**
 - Utility methods to calculate `width` and `height` based on `screenSize` added.
 
-## [0.2.1]
+## [0.3.0]
+
+**Breaking Change:**
+
+- `requireLogin` property removed from `LandingPageManager`.
 
 **New Widgets:**
 - GridOrListView

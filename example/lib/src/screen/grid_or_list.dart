@@ -1,5 +1,3 @@
-import 'package:example/src/screen/grid_view_t.dart';
-import 'package:example/src/screen/list_view_t.dart';
 import 'package:example/src/util/storage_key.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttered/fluttered.dart';
@@ -38,6 +36,24 @@ class GridOrList extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class GridViewT extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('GRID_VIEW'),
+    );
+  }
+}
+
+class ListViewT extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('LIST_VIEW'),
     );
   }
 }

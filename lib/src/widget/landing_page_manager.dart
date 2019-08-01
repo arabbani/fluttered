@@ -10,9 +10,6 @@ class LandingPageManager extends StatelessWidget {
   /// Must not be null.
   final Widget homeScreen;
 
-  /// Whether login is required to access the application.
-  final bool requireLogin;
-
   /// The persistence storage `key` used to store whether
   /// user is logged in. Use the same key throughout your
   /// application.
@@ -26,32 +23,22 @@ class LandingPageManager extends StatelessWidget {
   LandingPageManager({
     Key key,
     @required this.homeScreen,
-    @required this.requireLogin,
-    this.loggedInKey,
-    this.loginScreen,
+    @required this.loggedInKey,
+    @required this.loginScreen,
   })  : assert(homeScreen != null, 'homeScreen must not be null'),
-        assert(requireLogin != null, 'requireLogin must not be null'),
-        assert(
-          !requireLogin || (loggedInKey != null && loginScreen != null),
-          'loggedInKey and loginScreen must be provided when requireLogin = true',
-        ),
+        assert(loggedInKey != null, 'loggedInKey must not be null'),
+        assert(loginScreen != null, 'loginScreen must not be null'),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (requireLogin) {
-      var loggedIn = sharedPrefsServiceInstance.get(loggedInKey) ?? false;
-      if (!loggedIn) {
-        return loginScreen;
-      }
-    }
-    return homeScreen;
+    var loggedIn = sharedPrefsServiceInstance.get(loggedInKey) ?? false;
+    return !loggedIn ? loginScreen : homeScreen;
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(FlagProperty('requireLogin', value: requireLogin));
     properties.add(StringProperty('loggedInKey', loggedInKey));
   }
 }

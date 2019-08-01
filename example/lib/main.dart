@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
           onGenerateRoute: RouteGenerator.generateRoute,
           home: LandingPageManager(
             homeScreen: HomePage(title: 'Home'),
-            requireLogin: true,
             loggedInKey: loggedInKey,
             loginScreen: LoginPage(),
           ),

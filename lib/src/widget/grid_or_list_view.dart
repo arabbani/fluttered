@@ -82,12 +82,8 @@ class GridOrListViewState extends State<GridOrListView> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    if (_selectedView == ViewType.grid) {
-      return widget.gridView;
-    }
-    return widget.listView;
-  }
+  Widget build(BuildContext context) =>
+      _selectedView == ViewType.grid ? widget.gridView : widget.listView;
 
   void _storeSelectedView(ViewType view) => sharedPrefsServiceInstance.set(
         widget.persistentKey,
