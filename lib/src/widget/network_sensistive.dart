@@ -41,6 +41,15 @@ class NetworkSensitive extends StatelessWidget {
   /// Backdrop opacity.
   final double backdropOpacity;
 
+  /// Callback to execute when device connected to cellular network.
+  final Function onCellular;
+
+  /// Callback to execute when device connected via Wi-Fi.
+  final Function onWifi;
+
+  /// Callback to execute when device not connected to any network.
+  final Function onOffline;
+
   /// Widget that reacts to network connections.
   const NetworkSensitive({
     Key key,
@@ -49,6 +58,9 @@ class NetworkSensitive extends StatelessWidget {
     this.showBackdrop = true,
     this.backdropColor = Colors.grey,
     this.backdropOpacity = 0.5,
+    this.onCellular,
+    this.onWifi,
+    this.onOffline,
     @required this.child,
   })  : assert(child != null, 'child must not be null'),
         assert(requiredNetworks != null, 'requiredNetwork must not be null'),
@@ -57,41 +69,60 @@ class NetworkSensitive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<ConnectivityResult> _mappedRequiredNetworks = [];
-    requiredNetworks.forEach(
-      (status) => _mappedRequiredNetworks.add(_mapNetwork(status)),
-    );
     return StreamProvider.value(
       value: Connectivity().onConnectivityChanged,
       child: Consumer<ConnectivityResult>(
         builder: (context, connectivity, _) {
-          if (_mappedRequiredNetworks.contains(connectivity)) {
-            return child;
-          } else {
-            List<Widget> stackChildren = [child];
-            if (showBackdrop) {
-              stackChildren.add(
-                Opacity(
-                  child: Container(
-                    color: backdropColor,
-                  ),
-                  opacity: backdropOpacity,
-                ),
-              );
-            }
-            stackChildren.add(
-              Positioned(
-                bottom: 0.0,
-                child: offlineFeedback,
-              ),
-            );
-            return Stack(
-              children: stackChildren,
-            );
-          }
+          _executeCallback(connectivity);
+          return _constructView(context, connectivity);
         },
       ),
     );
+  }
+
+  Widget _constructView(BuildContext context, ConnectivityResult connectivity) {
+    List<ConnectivityResult> _mappedRequiredNetworks = [];
+    requiredNetworks.forEach(
+      (status) => _mappedRequiredNetworks.add(_mapNetwork(status)),
+    );
+    if (_mappedRequiredNetworks.contains(connectivity)) {
+      return child;
+    } else {
+      List<Widget> stackChildren = [child];
+      if (showBackdrop) {
+        stackChildren.add(
+          Opacity(
+            child: Container(
+              color: backdropColor,
+            ),
+            opacity: backdropOpacity,
+          ),
+        );
+      }
+      stackChildren.add(
+        Positioned(
+          bottom: 0.0,
+          child: offlineFeedback,
+        ),
+      );
+      return Stack(
+        children: stackChildren,
+      );
+    }
+  }
+
+  void _executeCallback(ConnectivityResult connectivity) {
+    switch (connectivity) {
+      case ConnectivityResult.wifi:
+        onWifi?.call();
+        break;
+      case ConnectivityResult.mobile:
+        onCellular?.call();
+        break;
+      case ConnectivityResult.none:
+        onOffline?.call();
+        break;
+    }
   }
 
   // Convert from our own enum to the third party enum

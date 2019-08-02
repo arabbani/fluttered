@@ -17,6 +17,7 @@ class NetworkAware extends StatelessWidget {
           alignment: Alignment.center,
           child: Text('Network Error'),
         ),
+        onWifi: () => print('WIFI'),
         child: Center(
           child: Text('NETWORK AWARE'),
         ),
