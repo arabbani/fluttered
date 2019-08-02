@@ -44,6 +44,10 @@ class _HomePageState extends State<HomePage> {
                 child: Text('Grid_Or_List'),
                 onPressed: () => Navigator.pushNamed(context, 'gridOrList'),
               ),
+              RaisedButton(
+                child: Text('NetworkSensitive'),
+                onPressed: () => Navigator.pushNamed(context, 'networkAware'),
+              ),
             ],
           ),
         ),

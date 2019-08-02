@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// Network connection status
 ///
@@ -22,49 +21,70 @@ class NetworkSensitive extends StatelessWidget {
   final Widget child;
 
   /// The network connection required for this widget to work.
-  /// Default value is [NetworkConnectivityStatus.wiFi].
-  final NetworkConnectivityStatus requiredNetwork;
+  /// Either one of the provided network is sufficient for this
+  /// widget to work.
+  ///
+  /// Example, if your widget work with either `wifi` or `cellular`, pass
+  /// `requiredNetworks = [NetworkConnectivityStatus.wifi, NetworkConnectivityStatus.cellular]`
+  final List<NetworkConnectivityStatus> requiredNetworks;
+
+  /// Widget to show as overlay when the network connection does
+  /// not satisfy [requiredNetworks].
+  final Widget offlineFeedback;
 
   /// Widget that reacts to network connections.
   const NetworkSensitive({
     Key key,
-    this.requiredNetwork = NetworkConnectivityStatus.wiFi,
+    @required this.requiredNetworks,
+    @required this.offlineFeedback,
     @required this.child,
   })  : assert(child != null, 'child must not be null'),
-        assert(requiredNetwork != null, 'requiredNetwork must not be null'),
+        assert(requiredNetworks != null, 'requiredNetwork must not be null'),
+        assert(offlineFeedback != null, 'offlineFeedback must not be null'),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    List<ConnectivityResult> _mappedRequiredNetworks = [];
+    requiredNetworks.forEach(
+      (status) => _mappedRequiredNetworks.add(_mapNetwork(status)),
+    );
+    return StreamProvider.value(
+      value: Connectivity().onConnectivityChanged,
+      child: Consumer<ConnectivityResult>(
+        builder: (context, connectivity, _) {
+          if (_mappedRequiredNetworks.contains(connectivity)) {
+            return child;
+          } else {
+            return Stack(
+              children: <Widget>[
+                child,
+                Positioned(
+                  bottom: 0.0,
+                  child: offlineFeedback,
+                ),
+              ],
+            );
+          }
+        },
+      ),
+    );
   }
-}
 
-class ConnectivityService {
-  // Create our public controller
-  StreamController<NetworkConnectivityStatus> connectionStatusController =
-      StreamController<NetworkConnectivityStatus>();
-
-  ConnectivityService() {
-    // Subscribe to the connectivity Chanaged Steam
-    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      // Use Connectivity() here to gather more info if you need t
-
-      connectionStatusController.add(_getStatusFromResult(result));
-    });
-  }
-
-  // Convert from the third part enum to our own enum
-  NetworkConnectivityStatus _getStatusFromResult(ConnectivityResult result) {
-    switch (result) {
-      case ConnectivityResult.mobile:
-        return NetworkConnectivityStatus.cellular;
-      case ConnectivityResult.wifi:
-        return NetworkConnectivityStatus.wiFi;
-      case ConnectivityResult.none:
-        return NetworkConnectivityStatus.offline;
-      default:
-        return NetworkConnectivityStatus.offline;
+  // Convert from our own enum to the third party enum
+  ConnectivityResult _mapNetwork(NetworkConnectivityStatus status) {
+    ConnectivityResult result;
+    switch (status) {
+      case NetworkConnectivityStatus.cellular:
+        result = ConnectivityResult.mobile;
+        break;
+      case NetworkConnectivityStatus.wiFi:
+        result = ConnectivityResult.wifi;
+        break;
+      case NetworkConnectivityStatus.offline:
+        result = ConnectivityResult.none;
+        break;
     }
+    return result;
   }
 }
