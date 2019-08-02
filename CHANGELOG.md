@@ -44,6 +44,9 @@ and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` ins
 - `requireLogin` property removed from `LandingPageManager`.
 - `lifecycleStateStream` stream removed from `LifecycleManager`.
 
+**New Features:**
+- `dispose` callback added to `StatefulWrapper`.
+
 **New Widgets:**
 - GridOrListView
 
