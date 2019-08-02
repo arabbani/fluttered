@@ -2,8 +2,9 @@ import 'package:example/src/util/storage_key.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttered/fluttered.dart';
 
+final GlobalKey<GridOrListViewState> key = GlobalKey();
+
 class GridOrList extends StatelessWidget {
-  final GlobalKey<GridOrListViewState> key = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

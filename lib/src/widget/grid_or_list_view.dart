@@ -94,6 +94,6 @@ class GridOrListViewState extends State<GridOrListView> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(EnumProperty('selectedView', _selectedView));
-    properties.add(EnumProperty('persistentKey', widget.persistentKey));
+    properties.add(StringProperty('persistentKey', widget.persistentKey));
   }
 }

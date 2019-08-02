@@ -33,10 +33,10 @@ class LifecycleManager extends StatefulWidget {
   /// Manages the application lifecycle states.
   const LifecycleManager({
     Key key,
-    @required this.child,
     this.onPaused,
     this.onResumed,
     this.onSuspending,
+    @required this.child,
   })  : assert(child != null, 'child must not be null'),
         super(key: key);
 
@@ -51,7 +51,8 @@ class _LifecycleManagerState extends State<LifecycleManager>
     with WidgetsBindingObserver {
   StreamController<AppLifecycleState> _lifecycleStateController;
 
-  /// Stream of application lifecycle states.
+  /// Stream of application lifecycle states. Listen to this stream
+  /// from any descendent widget to get notified when lifecycle state changes.
   Stream<AppLifecycleState> lifecycleStateStream;
 
   @override

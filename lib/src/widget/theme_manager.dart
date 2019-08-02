@@ -42,7 +42,7 @@ class ThemeManager extends StatefulWidget {
 }
 
 class _ThemeManagerState extends State<ThemeManager> {
-  final _themeStorageKey = 'fluttered_SelectedTheme';
+  final _themeNamePersistentKey = 'fluttered_SelectedTheme';
 
   /// Currently selected theme.
   String selectedTheme;
@@ -50,14 +50,14 @@ class _ThemeManagerState extends State<ThemeManager> {
   @override
   void initState() {
     super.initState();
-    selectedTheme = sharedPrefsServiceInstance.get(_themeStorageKey);
+    selectedTheme = sharedPrefsServiceInstance.get(_themeNamePersistentKey);
     if (selectedTheme == null) {
       selectedTheme = widget.defaultTheme;
       _storeSelectedThemeName(widget.defaultTheme);
     }
   }
 
-  /// Set the theme.
+  /// Set the theme. [setTheme] will call [setState] to rebuild the UI.
   void setTheme(String name) {
     if (selectedTheme != name) {
       setState(() {
@@ -72,7 +72,7 @@ class _ThemeManagerState extends State<ThemeManager> {
       widget.builder(context, widget.availableThemes[selectedTheme]);
 
   void _storeSelectedThemeName(String theme) =>
-      sharedPrefsServiceInstance.set(_themeStorageKey, theme);
+      sharedPrefsServiceInstance.set(_themeNamePersistentKey, theme);
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
