@@ -29,31 +29,23 @@ class _HomePageState extends State<HomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 50),
-            ),
-            StreamBuilder(
-              stream: LifecycleManager.of(context).lifecycleStateStream,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text('WAITING');
-                } else if (snapshot.hasError) {
-                  return Text('APP LIFECYCLE_STATE ERROR');
-                } else {
-                  return Text(snapshot.data.toString());
-                }
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 50),
-            ),
-            RaisedButton(
-              child: Text('Grid_Or_List'),
-              onPressed: () => Navigator.pushNamed(context, 'gridOrList'),
-            ),
-          ],
+        child: LifecycleManager(
+          onPaused: () => print('PAUSED'),
+          onResumed: () => print('RESUMED'),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 50),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 50),
+              ),
+              RaisedButton(
+                child: Text('Grid_Or_List'),
+                onPressed: () => Navigator.pushNamed(context, 'gridOrList'),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

@@ -42,6 +42,7 @@ and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` ins
 **Breaking Change:**
 
 - `requireLogin` property removed from `LandingPageManager`.
+- `lifecycleStateStream` stream removed from `LifecycleManager`.
 
 **New Widgets:**
 - GridOrListView

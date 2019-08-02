@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/widgets.dart';
 
 /// Manages the application lifecycle states.
@@ -9,32 +7,24 @@ class LifecycleManager extends StatefulWidget {
   /// Must not be null.
   final Widget child;
 
-  /// Called when the application is paused.
-  ///
-  /// See also:
-  ///
-  ///  * [AppLifecycleState] for more info.
-  final VoidCallback onPaused;
-
-  /// Called when the application is resumed.
-  ///
-  /// See also:
-  ///
-  ///  * [AppLifecycleState] for more info.
+  /// Called when the application is in [AppLifecycleState.resumed] state.
   final VoidCallback onResumed;
 
-  /// Called when the application is suspending.
-  ///
-  /// See also:
-  ///
-  ///  * [AppLifecycleState] for more info.
+  /// Called when the application is in [AppLifecycleState.inactive] state.
+  final VoidCallback onInactive;
+
+  /// Called when the application is in [AppLifecycleState.paused] state.
+  final VoidCallback onPaused;
+
+  /// Called when the application is in [AppLifecycleState.suspending] state.
   final VoidCallback onSuspending;
 
   /// Manages the application lifecycle states.
   const LifecycleManager({
     Key key,
-    this.onPaused,
     this.onResumed,
+    this.onInactive,
+    this.onPaused,
     this.onSuspending,
     @required this.child,
   })  : assert(child != null, 'child must not be null'),
@@ -49,42 +39,33 @@ class LifecycleManager extends StatefulWidget {
 
 class _LifecycleManagerState extends State<LifecycleManager>
     with WidgetsBindingObserver {
-  StreamController<AppLifecycleState> _lifecycleStateController;
-
-  /// Stream of application lifecycle states. Listen to this stream
-  /// from any descendent widget to get notified when lifecycle state changes.
-  Stream<AppLifecycleState> lifecycleStateStream;
-
   @override
   void initState() {
     super.initState();
-    _lifecycleStateController = StreamController();
-    lifecycleStateStream = _lifecycleStateController.stream;
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    _lifecycleStateController?.close();
-    lifecycleStateStream = null;
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    _lifecycleStateController.add(state);
     switch (state) {
-      case AppLifecycleState.paused:
-        widget.onPaused?.call();
-        break;
       case AppLifecycleState.resumed:
         widget.onResumed?.call();
+        break;
+      case AppLifecycleState.inactive:
+        widget.onInactive?.call();
+        break;
+      case AppLifecycleState.paused:
+        widget.onPaused?.call();
         break;
       case AppLifecycleState.suspending:
         widget.onSuspending?.call();
         break;
-      default:
     }
   }
 
