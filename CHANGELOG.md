@@ -35,7 +35,7 @@ and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` ins
 - SharedPrefsService
 
 **Others:**
-- Utility methods to calculate `width` and `height` based on `screenSize` added.
+- Utility methods `calculateHeight` and `calculateWidth` added to calculate `height` and `width` based on `screenSize`.
 
 ## [0.3.0]
 
@@ -45,6 +45,9 @@ and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` ins
 
 **New Widgets:**
 - GridOrListView
+
+**Others:**
+- `screenSize`, `screenHeight` and `screenWidth` method added.
 
 
 
