@@ -49,6 +49,7 @@ and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` ins
 
 **New Widgets:**
 - GridOrListView
+- NetworkSensitive
 
 **Others:**
 - `screenSize`, `screenHeight` and `screenWidth` method added.

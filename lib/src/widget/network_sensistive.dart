@@ -32,11 +32,23 @@ class NetworkSensitive extends StatelessWidget {
   /// not satisfy [requiredNetworks].
   final Widget offlineFeedback;
 
+  /// Whether to show backdrop.
+  final bool showBackdrop;
+
+  /// Backdrop color.
+  final Color backdropColor;
+
+  /// Backdrop opacity.
+  final double backdropOpacity;
+
   /// Widget that reacts to network connections.
   const NetworkSensitive({
     Key key,
     @required this.requiredNetworks,
     @required this.offlineFeedback,
+    this.showBackdrop = true,
+    this.backdropColor = Colors.grey,
+    this.backdropOpacity = 0.5,
     @required this.child,
   })  : assert(child != null, 'child must not be null'),
         assert(requiredNetworks != null, 'requiredNetwork must not be null'),
@@ -56,14 +68,25 @@ class NetworkSensitive extends StatelessWidget {
           if (_mappedRequiredNetworks.contains(connectivity)) {
             return child;
           } else {
-            return Stack(
-              children: <Widget>[
-                child,
-                Positioned(
-                  bottom: 0.0,
-                  child: offlineFeedback,
+            List<Widget> stackChildren = [child];
+            if (showBackdrop) {
+              stackChildren.add(
+                Opacity(
+                  child: Container(
+                    color: backdropColor,
+                  ),
+                  opacity: backdropOpacity,
                 ),
-              ],
+              );
+            }
+            stackChildren.add(
+              Positioned(
+                bottom: 0.0,
+                child: offlineFeedback,
+              ),
+            );
+            return Stack(
+              children: stackChildren,
             );
           }
         },
