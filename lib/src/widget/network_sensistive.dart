@@ -14,7 +14,7 @@ enum NetworkConnectivityStatus {
 }
 
 /// Widget that reacts to network connections.
-class NetworkSensitive extends StatelessWidget {
+class NetworkSensitive extends StatefulWidget {
   /// The widget below this widget in the tree.
   ///
   /// Must not be null.
@@ -68,6 +68,25 @@ class NetworkSensitive extends StatelessWidget {
         super(key: key);
 
   @override
+  _NetworkSensitiveState createState() => _NetworkSensitiveState();
+}
+
+class _NetworkSensitiveState extends State<NetworkSensitive> {
+  List<ConnectivityResult> _mappedRequiredNetworks = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _mapThirdPartyNaetworkStatus();
+  }
+
+  @override
+  void didUpdateWidget(NetworkSensitive oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _mapThirdPartyNaetworkStatus();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamProvider.value(
       value: Connectivity().onConnectivityChanged,
@@ -81,28 +100,24 @@ class NetworkSensitive extends StatelessWidget {
   }
 
   Widget _constructView(BuildContext context, ConnectivityResult connectivity) {
-    List<ConnectivityResult> _mappedRequiredNetworks = [];
-    requiredNetworks.forEach(
-      (status) => _mappedRequiredNetworks.add(_mapNetwork(status)),
-    );
     if (_mappedRequiredNetworks.contains(connectivity)) {
-      return child;
+      return widget.child;
     } else {
-      List<Widget> stackChildren = [child];
-      if (showBackdrop) {
+      List<Widget> stackChildren = [widget.child];
+      if (widget.showBackdrop) {
         stackChildren.add(
           Opacity(
             child: Container(
-              color: backdropColor,
+              color: widget.backdropColor,
             ),
-            opacity: backdropOpacity,
+            opacity: widget.backdropOpacity,
           ),
         );
       }
       stackChildren.add(
         Positioned(
           bottom: 0.0,
-          child: offlineFeedback,
+          child: widget.offlineFeedback,
         ),
       );
       return Stack(
@@ -111,21 +126,26 @@ class NetworkSensitive extends StatelessWidget {
     }
   }
 
+  void _mapThirdPartyNaetworkStatus() {
+    widget.requiredNetworks.forEach(
+      (status) => _mappedRequiredNetworks.add(_mapNetwork(status)),
+    );
+  }
+
   void _executeCallback(ConnectivityResult connectivity) {
     switch (connectivity) {
       case ConnectivityResult.wifi:
-        onWifi?.call();
+        widget.onWifi?.call();
         break;
       case ConnectivityResult.mobile:
-        onCellular?.call();
+        widget.onCellular?.call();
         break;
       case ConnectivityResult.none:
-        onOffline?.call();
+        widget.onOffline?.call();
         break;
     }
   }
 
-  // Convert from our own enum to the third party enum
   ConnectivityResult _mapNetwork(NetworkConnectivityStatus status) {
     ConnectivityResult result;
     switch (status) {
