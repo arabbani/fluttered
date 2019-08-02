@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttered/src/global/private_instance.dart';
 import 'package:fluttered/src/global/public_instance.dart';
 
 typedef _ThemedWidgetBuilder = Widget Function(
@@ -42,7 +43,7 @@ class ThemeManager extends StatefulWidget {
 }
 
 class _ThemeManagerState extends State<ThemeManager> {
-  final _themeNamePersistentKey = 'fluttered_SelectedTheme';
+  final _themeNamePersistentKey = '${persistentStoreKeyPrefix}SelectedTheme';
 
   /// Currently selected theme.
   String selectedTheme;
