@@ -6,6 +6,7 @@ class SharedPrefsService {
   static SharedPrefsService _singleton;
   static SharedPreferences _preferences;
 
+  /// Get an instance of this service.
   static Future<SharedPrefsService> instance() async {
     if (_singleton == null) {
       _singleton = SharedPrefsService();
