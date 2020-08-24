@@ -1,6 +1,6 @@
 name: fluttered
 description: A Flutter package that comes with various widgets and other helpers to reduce boiler plate code.
-version: 1.0.0
+version: 2.0.0
 homepage: https://github.com/arabbani/fluttered
 
 environment:

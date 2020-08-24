@@ -1,25 +1,22 @@
-## 0.0.1
-
-- PVC architecture added
-
-## 0.0.1+1
-
-- README file modified
-
-## 0.0.2
-
-- a `dispose` parameter added to `ImmutablePVC`s to cleanup resources.
-
-## 0.1.0
+## 2.0.0
 
 **Breaking Change:**
 
-- `StatelessMutabalePVC`, `StatefulMutabalePVC`, `StatelessImmutabalePVC`
-  and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` instead.
+- `requireLogin` property removed from `LandingPageManager`.
+- `lifecycleStateStream` stream removed from `LifecycleManager`.
 
 **New Features:**
 
-- StatefulWrapper widget added.
+- `dispose` callback added to `StatefulWrapper`.
+
+**New Widgets:**
+
+- GridOrListView
+- NetworkSensitive
+
+**Others:**
+
+- `screenSize`, `screenHeight` and `screenWidth` method added.
 
 ## 0.2.0
 
@@ -45,22 +42,25 @@
 
 - Utility methods `calculateHeight` and `calculateWidth` added to calculate `height` and `width` based on `screenSize`.
 
-## 2.0.0
+## 0.1.0
 
 **Breaking Change:**
 
-- `requireLogin` property removed from `LandingPageManager`.
-- `lifecycleStateStream` stream removed from `LifecycleManager`.
+- `StatelessMutabalePVC`, `StatefulMutabalePVC`, `StatelessImmutabalePVC`
+  and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` instead.
 
 **New Features:**
 
-- `dispose` callback added to `StatefulWrapper`.
+- StatefulWrapper widget added.
 
-**New Widgets:**
+## 0.0.2
 
-- GridOrListView
-- NetworkSensitive
+- a `dispose` parameter added to `ImmutablePVC`s to cleanup resources.
 
-**Others:**
+## 0.0.1+1
 
-- `screenSize`, `screenHeight` and `screenWidth` method added.
+- README file modified
+
+## 0.0.1
+
+- PVC architecture added
