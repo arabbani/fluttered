@@ -1,14 +1,27 @@
-## [1.0.0]
+## 0.0.1
+
+- PVC architecture added
+
+## 0.0.1+1
+
+- README file modified
+
+## 0.0.2
+
+- a `dispose` parameter added to `ImmutablePVC`s to cleanup resources.
+
+## 0.1.0
 
 **Breaking Change:**
 
-- `requireLogin` property removed from `LandingPageManager`.
+- `StatelessMutabalePVC`, `StatefulMutabalePVC`, `StatelessImmutabalePVC`
+  and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` instead.
 
-**New Widgets:**
+**New Features:**
 
-- GridOrListView
+- StatefulWrapper widget added.
 
-## [0.2.0]
+## 0.2.0
 
 **Breaking Change:**
 
@@ -30,27 +43,24 @@
 
 **Others:**
 
-- Utility methods to calculate `width` and `height` based on `screenSize` added.
+- Utility methods `calculateHeight` and `calculateWidth` added to calculate `height` and `width` based on `screenSize`.
 
-## [0.1.0]
+## 2.0.0
 
 **Breaking Change:**
 
-- `StatelessMutabalePVC`, `StatefulMutabalePVC`, `StatelessImmutabalePVC`
-  and `StatefulImmutabalePVC` are removed. Use `MutablePVC` and `ImmutablePVC` instead.
+- `requireLogin` property removed from `LandingPageManager`.
+- `lifecycleStateStream` stream removed from `LifecycleManager`.
 
 **New Features:**
 
-- StatefulWrapper widget added.
+- `dispose` callback added to `StatefulWrapper`.
 
-## [0.0.2]
+**New Widgets:**
 
-- a `dispose` parameter added to `ImmutablePVC`s to cleanup resources.
+- GridOrListView
+- NetworkSensitive
 
-## [0.0.1+1]
+**Others:**
 
-- README file modified
-
-## [0.0.1]
-
-- PVC architecture added
+- `screenSize`, `screenHeight` and `screenWidth` method added.

@@ -15,12 +15,10 @@ class _HomePageState extends State<HomePage> {
   int _counter = 0;
 
   void _incrementCounter(BuildContext context) {
-    setState(() {
-      _counter++;
-      if (_counter > 1) {
-        _counter = 0;
-      }
-    });
+    _counter++;
+    if (_counter > 1) {
+      _counter = 0;
+    }
     ThemeManager.of(context).setTheme(availableThemes.keys.toList()[_counter]);
   }
 
@@ -31,31 +29,27 @@ class _HomePageState extends State<HomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 50),
-            ),
-            StreamBuilder(
-              stream: LifecycleManager.of(context).lifecycleStateStream,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text('WAITING');
-                } else if (snapshot.hasError) {
-                  return Text('APP LIFECYCLE_STATE ERROR');
-                } else {
-                  return Text(snapshot.data.toString());
-                }
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 50),
-            ),
-            RaisedButton(
-              child: Text('Grid_Or_List'),
-              onPressed: () => Navigator.pushNamed(context, 'gridOrList'),
-            ),
-          ],
+        child: LifecycleManager(
+          onPaused: () => print('PAUSED'),
+          onResumed: () => print('RESUMED'),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 50),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 50),
+              ),
+              RaisedButton(
+                child: Text('Grid_Or_List'),
+                onPressed: () => Navigator.pushNamed(context, 'gridOrList'),
+              ),
+              RaisedButton(
+                child: Text('NetworkSensitive'),
+                onPressed: () => Navigator.pushNamed(context, 'networkAware'),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

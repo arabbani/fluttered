@@ -3,17 +3,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Manage the persistent storage. Used to store simple data
 /// as key-value pair.
 class SharedPrefsService {
-  static SharedPrefsService _instance;
+  static SharedPrefsService _singleton;
   static SharedPreferences _preferences;
 
+  /// Get an instance of this service.
   static Future<SharedPrefsService> instance() async {
-    if (_instance == null) {
-      _instance = SharedPrefsService();
+    if (_singleton == null) {
+      _singleton = SharedPrefsService();
     }
     if (_preferences == null) {
       _preferences = await SharedPreferences.getInstance();
     }
-    return _instance;
+    return _singleton;
   }
 
   /// Saves the [value] to persistent storage.

@@ -1,10 +1,12 @@
 import 'package:flutter/widgets.dart';
 
-/// A widget that provides `initState` and `didUpdateWidget`
+/// A widget that provides [StatefulWidget.initState],
+/// [StatefulWidget.didUpdateWidget] and [StatefulWidget.dispose]
 /// callback in a [StatelessWidget].
 ///
 /// Instead of creating a [StatefulWidget] only to call `initState`,
-/// or `didUpdateWidget` use [StatefulWrapper] from a [StatelessWidget].
+/// or `didUpdateWidget` or `dispose` use [StatefulWrapper] from a
+/// [StatelessWidget].
 class StatefulWrapper extends StatefulWidget {
   /// The widget below this widget in the tree.
   ///
@@ -26,19 +28,27 @@ class StatefulWrapper extends StatefulWidget {
   ///  * [StatefulWidget.didUpdateWidget].
   final Function didUpdateWidget;
 
-  /// Provides `initState` and `didUpdateWidget` callback in
-  /// a [StatelessWidget].
+  /// Called when this object is removed from the tree permanently.
+  ///
+  /// See also:
+  ///
+  ///  * [StatefulWidget.dispose].
+  final Function dispose;
+
+  /// Provides [StatefulWidget.initState], [StatefulWidget.didUpdateWidget]
+  /// and [StatefulWidget.dispose] callback in a [StatelessWidget].
   ///
   /// The parameter [child] must not be null. Atleast one of
-  /// [initState] and [didUpdateWidget] must be provided.
+  /// [initState], [didUpdateWidget] and [dispose] must be provided.
   const StatefulWrapper({
     Key key,
-    @required this.child,
     this.initState,
     this.didUpdateWidget,
+    this.dispose,
+    @required this.child,
   })  : assert(child != null, 'child must not be null'),
-        assert(initState != null || didUpdateWidget != null,
-            'Atleast one of initState and didUpdateWidget must be provided'),
+        assert(initState != null || didUpdateWidget != null || dispose != null,
+            'Atleast one of initState, didUpdateWidget and dispose must be provided'),
         super(key: key);
 
   @override
@@ -56,6 +66,12 @@ class _StatefulWrapperState extends State<StatefulWrapper> {
   void didUpdateWidget(StatefulWrapper oldWidget) {
     super.didUpdateWidget(oldWidget);
     widget.didUpdateWidget?.call();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    widget.dispose?.call();
   }
 
   @override

@@ -1,1 +1,1 @@
-
+const persistentStoreKeyPrefix = 'fluttered_';

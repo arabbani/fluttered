@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 /// Get the size of the screen.
 Size screenSize(BuildContext context) => MediaQuery.of(context).size;
 
+/// Get the height of the screen.
+double screenHeight(BuildContext context) => screenSize(context).height;
+
+/// Get the width of the screen.
+double screenWidth(BuildContext context) => screenSize(context).width;
+
 /// Calculate the height based on the screen height.
 ///
 /// This method divides the screen height into [split] equal parts,
@@ -23,9 +29,9 @@ double calculateHeight(
   double take = 1,
   bool excludeToolbar = false,
 }) {
-  double screenHeight = screenSize(context).height;
-  if (excludeToolbar) screenHeight -= kToolbarHeight;
-  return screenHeight / (split - take);
+  var height = screenHeight(context);
+  if (excludeToolbar) height -= kToolbarHeight;
+  return height / (split - take);
 }
 
 /// Calculate the width based on the screen width.
@@ -45,4 +51,4 @@ double calculateWidth(
   double split = 2,
   double take = 1,
 }) =>
-    screenSize(context).width / (split - take);
+    screenWidth(context) / (split - take);

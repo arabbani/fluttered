@@ -14,21 +14,17 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LifecycleManager(
-      onPaused: () => print('PAUSED'),
-      onResumed: () => print('RESUMED'),
-      child: ThemeManager(
-        availableThemes: availableThemes,
-        defaultTheme: defaultTheme,
-        builder: (context, theme) => MaterialApp(
-          title: 'Fluttered',
-          theme: theme,
-          onGenerateRoute: RouteGenerator.generateRoute,
-          home: LandingPageManager(
-            homeScreen: HomePage(title: 'Home'),
-            loggedInKey: loggedInKey,
-            loginScreen: LoginPage(),
-          ),
+    return ThemeManager(
+      availableThemes: availableThemes,
+      defaultTheme: defaultTheme,
+      builder: (context, theme) => MaterialApp(
+        title: 'Fluttered',
+        theme: theme,
+        onGenerateRoute: RouteGenerator.generateRoute,
+        home: LandingPageManager(
+          homeScreen: HomePage(title: 'Home'),
+          loggedInKey: loggedInKey,
+          loginScreen: LoginPage(),
         ),
       ),
     );
