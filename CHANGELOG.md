@@ -1,3 +1,7 @@
+## 2.0.1
+
+- I accidentally published the package without the latest features. Please update to latest version.
+
 ## 2.0.0
 
 **Breaking Change:**
