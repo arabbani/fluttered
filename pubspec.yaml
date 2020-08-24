@@ -1,7 +1,6 @@
 name: fluttered
-description: A Flutter package that comes with various widgets and other helpers to reduce boiler plate code. 
-version: 0.2.0
-author: Arif Rabbani <arif.93rabbani@gmail.com>
+description: A Flutter package that comes with various widgets and other helpers to reduce boiler plate code.
+version: 1.0.0
 homepage: https://github.com/arabbani/fluttered
 
 environment:
